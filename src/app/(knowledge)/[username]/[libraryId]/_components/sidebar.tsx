@@ -14,7 +14,7 @@ import {
     BreadcrumbList,
     BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getNotes} from '@/lib/utils'
 import {API_BASE_PATH} from "@/lib/constants.ts";
@@ -22,6 +22,7 @@ import {API_BASE_PATH} from "@/lib/constants.ts";
 const Sidebar = () => {
     let params = useParams()
     const libraryId = params.libraryId
+    let [searchParams] = useSearchParams()
 
     let [library, setLibrary] =
         useState<Library | undefined>()
@@ -31,7 +32,7 @@ const Sidebar = () => {
             const json = await res.json();
             setLibrary(json.library)
         })()
-    }, [params])
+    }, [searchParams])
 
     const [notes, setNotes] = useState<Note[]>([])
     useEffect(() => {
@@ -48,7 +49,7 @@ const Sidebar = () => {
             setNotes(notes)
             // console.log(notes)
         })()
-    }, [library, params]);
+    }, [library]);
 
     if (!library || !notes) {
         return

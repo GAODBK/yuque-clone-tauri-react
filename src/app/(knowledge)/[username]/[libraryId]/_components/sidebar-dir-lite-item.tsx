@@ -68,7 +68,8 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                                             && `bg-gray-300/30`
                                                         )}
                                                         key={item.id}>
-                                                        <Link to={`/malred/${libraryId}/${item.id}`}>
+                                                        <Link
+                                                            to={`/malred/${libraryId}/${item.id}?random=${Math.random()}`}>
                                                             {item.name}
                                                         </Link>
                                                     </div>
@@ -140,7 +141,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                                 pathname === `/malred/${libraryId}/${item.id}` && `bg-gray-300/30`
                                             )}
                                             key={item.id}>
-                                            <Link to={`/malred/${libraryId}/${item.id}`}>
+                                            <Link to={`/malred/${libraryId}/${item.id}?random=${Math.random()}`}>
                                                 {item.name}
                                             </Link>
                                         </div>

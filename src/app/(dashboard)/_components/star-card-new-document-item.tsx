@@ -1,5 +1,5 @@
 // src/app/(dashboard)/_components/star-card-new-document-item.tsx
-import  {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {GrDocumentText} from "react-icons/gr";
 import {LuClipboardPenLine, LuTableProperties} from "react-icons/lu";
 import {BsClipboardData} from "react-icons/bs";
@@ -28,13 +28,13 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {Link} from 'react-router-dom';
-import {v4 as uuid} from 'uuid'
+import {Link, useNavigate} from 'react-router-dom';
 import {Library} from "@prisma/client";
 import {API_BASE_PATH} from "@/lib/constants.ts";
+import {createNote} from "@/app/(knowledge)/[username]/[libraryId]/actions/create-note.ts";
+import toast from "react-hot-toast";
 
 const StarCardNewDocumentItem = () => {
-    const id = uuid()
     let [libraries, setLibraries] = useState<Library[] | undefined>()
     useEffect(() => {
         (async () => {
@@ -43,6 +43,8 @@ const StarCardNewDocumentItem = () => {
             setLibraries(json.libraries)
         })()
     }, [])
+
+    const router = useNavigate()
 
     return (
         <>
@@ -86,15 +88,19 @@ const StarCardNewDocumentItem = () => {
                                         <CommandGroup>
                                             {libraries && libraries.length !== 0 &&
                                                 libraries.map((l) => (
-                                                    <Link
+                                                    <CommandItem
                                                         key={l.id}
-                                                        to={`/username/${l.id}/${id}/edit`}>
-                                                        <CommandItem
-                                                            className={`my-2 cursor-pointer`}
-                                                        >
-                                                            知识库1
-                                                        </CommandItem>
-                                                    </Link>
+                                                        onSelect={async () => {
+                                                            const note = await createNote({
+                                                                libraryId: l.id
+                                                            })
+                                                            router(`/malred/${l.id}/${note.id}`)
+                                                            toast.success('创建成功')
+                                                        }}
+                                                        className={`my-2 cursor-pointer`}
+                                                    >
+                                                        {l.name}
+                                                    </CommandItem>
                                                 ))}
                                         </CommandGroup>
                                         {libraries && libraries.length === 0 && (

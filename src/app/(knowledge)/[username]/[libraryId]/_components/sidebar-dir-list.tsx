@@ -44,7 +44,7 @@ const SidebarDirList = ({libraryId, notes, groups}: {
                 {open && notes.length === 0 && groups.length === 0 && (
                     <div className={`transition-all duration-200 w-full h-[71vh] flex justify-center items-center`}>
                         <div>知识库为空，你可以<span
-                            className={`text-blue-500 underline`}
+                            className={`cursor-pointer text-blue-500 underline`}
                             onClick={onClick}
                         >新建文档</span>
                         </div>
