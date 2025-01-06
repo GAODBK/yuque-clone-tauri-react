@@ -1,0 +1,111 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// 知识库
+model Library {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  // 首页内容
+  text        String  @db.LongText
+  // 首页显示目录模块
+  showDir     Boolean
+
+  childrenLibrary Library[] @relation("ParentChildrenLibrary")
+  // 级联删除
+  parentLibrary   Library?  @relation("ParentChildrenLibrary", fields: [parentLibraryId], references: [id], onDelete: Cascade)
+  parentLibraryId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Note  Note[]
+  Group Group[]
+  Excel Excel[]
+}
+
+// 知识库分组
+model Group {
+  id   String @id @default(cuid())
+  name String
+  Note Note[]
+
+  childrenGroup Group[] @relation("ParentChildrenGroup")
+  // 级联删除
+  parentGroup   Group?  @relation("ParentChildrenGroup", fields: [parentGroupId], references: [id], onDelete: Cascade)
+  parentGroupId String?
+
+  libraryId String
+  library   Library @relation(fields: [libraryId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Excel     Excel[]
+}
+
+// 知识库笔记
+model Note {
+  id   String @id @default(cuid())
+  name String
+  // 内容(富文本) - 类型为LongText
+  text String @db.LongText
+
+  libraryId String
+  library   Library @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+
+  childrenNote Note[]  @relation("ParentChildrenNote")
+  // 级联删除
+  parentNote   Note?   @relation("ParentChildrenNote", fields: [parentNoteId], references: [id], onDelete: Cascade)
+  parentNoteId String?
+
+  groupId String?
+  group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  NoteHistory NoteHistory[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 知识库笔记历史记录
+model NoteHistory {
+  id   String @id @default(cuid())
+  // 内容(富文本) - 类型为LongText
+  text String @db.LongText
+
+  noteId String
+  note   Note   @relation(fields: [noteId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// 表格
+model Excel {
+  id String @id @default(cuid())
+
+  name String
+  // 本地路径
+  url  String
+
+  libraryId String
+  library   Library @relation(fields: [libraryId], references: [id], onDelete: Cascade)
+
+  groupId String?
+  group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
