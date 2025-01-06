@@ -2,7 +2,6 @@
 
 import {Note} from "@prisma/client";
 import {Link} from 'react-router-dom';
-import {Separator} from "@/components/ui/separator";
 
 const HomepageDirItem = ({notes, level = 0}: {
     notes: Note[]

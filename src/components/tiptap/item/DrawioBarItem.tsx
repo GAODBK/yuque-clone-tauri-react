@@ -1,7 +1,4 @@
 // src/components/tiptap/item/DrawioBarItem.tsx
-'use client';
-import React, {useState} from 'react';
-import {useEditorStore} from "@/hooks/use-editor-store";
 import {Toggle} from "@/components/ui/toggle";
 import {cn} from "@/lib/utils";
 import {Editor} from '@tiptap/react';

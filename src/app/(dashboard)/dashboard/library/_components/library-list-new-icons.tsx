@@ -4,12 +4,7 @@ import {FiPlus} from "react-icons/fi";
 import {IoChevronDownOutline} from "react-icons/io5";
 import LibraryNewForm from "@/app/(dashboard)/dashboard/library/_components/library-new-form";
 import {Separator} from "@/components/ui/separator";
-import {useAIState} from "ai/rsc";
-import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
-import {BsJournalBookmark} from "react-icons/bs";
-import {Input} from "@/components/ui/input";
-import {Textarea} from "@/components/ui/textarea";
-import {Button} from "@/components/ui/button";
+import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
 
 const LibraryListNewIcons = () => {
     return (

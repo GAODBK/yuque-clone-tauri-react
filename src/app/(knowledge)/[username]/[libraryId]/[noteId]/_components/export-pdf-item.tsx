@@ -1,11 +1,8 @@
 // src/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/export-pdf-item.tsx
-'use client';
 
-import {PDFDocument, rgb} from 'pdf-lib';
-import fontkit from '@pdf-lib/fontkit';
+import {PDFDocument } from 'pdf-lib';
 import html2canvas from 'html2canvas';
 import {saveAs} from 'file-saver';
-import {Button} from "@/components/ui/button";
 import {GrDocumentPdf} from "react-icons/gr";
 
 const ExportPdfItem = ({title}: { title: string }) => {

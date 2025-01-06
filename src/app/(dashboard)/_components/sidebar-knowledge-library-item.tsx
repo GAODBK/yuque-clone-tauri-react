@@ -2,7 +2,7 @@
 // 'use client';
 
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
-import {Link, useParams, useSearchParams} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Ellipsis, GripVertical} from "lucide-react";
 import {BsJournalBookmark} from "react-icons/bs";
 import {useEffect, useState} from "react";

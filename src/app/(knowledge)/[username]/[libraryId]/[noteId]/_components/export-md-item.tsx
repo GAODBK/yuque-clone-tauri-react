@@ -1,7 +1,6 @@
 // src/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/export-md-item.tsx
 
 import {IoLogoMarkdown} from "react-icons/io5";
-import React, {useRef} from 'react';
 import {saveAs} from 'file-saver';
 
 import TurndownService from 'turndown';

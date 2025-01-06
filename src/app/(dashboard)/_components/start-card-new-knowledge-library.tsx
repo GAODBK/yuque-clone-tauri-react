@@ -1,10 +1,10 @@
 // src/app/(dashboard)/_components/start-card-new-knowledge-library.tsx
-'use client';
-import React, {useState} from 'react';
+
+import {useState} from 'react';
 import {
     Dialog,
     DialogContent,
-    DialogDescription, DialogFooter,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger

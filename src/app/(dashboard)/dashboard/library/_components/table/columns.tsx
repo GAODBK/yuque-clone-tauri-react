@@ -1,9 +1,7 @@
 // src/app/(dashboard)/dashboard/library/_components/table/columns.tsx
-"use client"
 
 import {ColumnDef} from "@tanstack/react-table"
 
-import {ArrowUpDown} from "lucide-react"
 import {Button} from "@mantine/core";
 
 // This type is used to define the shape of our data.

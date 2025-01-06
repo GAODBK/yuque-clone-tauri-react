@@ -2,7 +2,7 @@
 
 import {DropdownMenu, DropdownMenuContent, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {HighlighterIcon} from "lucide-react";
-import {CirclePicker, SketchPicker} from 'react-color'
+import { SketchPicker} from 'react-color'
 import {cn} from "@/lib/utils";
 import {useEditorStore} from "@/hooks/use-editor-store";
 

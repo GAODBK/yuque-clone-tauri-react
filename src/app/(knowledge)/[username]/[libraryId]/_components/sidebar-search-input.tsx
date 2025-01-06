@@ -7,13 +7,9 @@ import {
     CommandEmpty,
     CommandGroup,
     CommandInput,
-    CommandItem,
     CommandList,
-    CommandSeparator
 } from "@/components/ui/command";
-import {FiClock} from "react-icons/fi";
-import {TiPen} from "react-icons/ti";
-import {BsClipboardData, BsJournalBookmark} from "react-icons/bs";
+import {BsClipboardData} from "react-icons/bs";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -22,7 +18,6 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import {GoPlus} from "react-icons/go";
-import {GrDocumentText} from "react-icons/gr";
 import {LuBookMarked, LuClipboardPenLine, LuTableProperties} from "react-icons/lu";
 import {FcImport, FcPuzzle} from "react-icons/fc";
 import {RiRobot2Line} from "react-icons/ri";

@@ -1,10 +1,9 @@
 // src/app/(dashboard)/dashboard/library/_components/library-new-form.tsx
-'use client';
-import React  from 'react';
+
 import {
     Dialog,
     DialogContent,
-    DialogDescription, DialogFooter,
+    DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger
@@ -13,9 +12,9 @@ import {Button} from "@/components/ui/button";
 import {BsJournalBookmark} from "react-icons/bs";
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import * as z from 'zod'
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from '@/components/ui/form';
+import {Form, FormControl, FormField, FormItem, FormMessage} from '@/components/ui/form';
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {createLibrary} from "@/app/(dashboard)/dashboard/library/actions/create-library";
@@ -32,7 +31,6 @@ const formSchema = z.object({
 
 const LibraryNewForm = () => {
     const router = useNavigate()
-    const [_s, setSearchParam] = useSearchParams()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -53,7 +51,7 @@ const LibraryNewForm = () => {
             // 个人用不做user等相关功能
             router(`/malred/${library.id}`)
             // router.refresh()
-            
+
         } catch (err) {
             toast.error(`Something went wrong`)
             console.error('Something went wrong', err);

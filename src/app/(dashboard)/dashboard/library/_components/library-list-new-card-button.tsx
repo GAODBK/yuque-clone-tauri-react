@@ -1,7 +1,7 @@
 // src/app/(dashboard)/dashboard/library/_components/library-list-new-card-button.tsx
 
 import {FaPlus} from "react-icons/fa6";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
 
 import {BsJournalBookmark} from "react-icons/bs";
@@ -26,7 +26,6 @@ const formSchema = z.object({
 
 const LibraryListNewCardButton = () => {
     const router = useNavigate()
-    const [_s, setSearchParam] = useSearchParams()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -48,7 +47,7 @@ const LibraryListNewCardButton = () => {
             // 个人用不做user等相关功能
             router(`/malred/${library.id}`)
             // router.refresh()
-            
+
         } catch (err) {
             toast.error(`Something went wrong`)
             console.error('Something went wrong', err);

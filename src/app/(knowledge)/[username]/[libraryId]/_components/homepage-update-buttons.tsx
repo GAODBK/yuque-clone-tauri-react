@@ -10,7 +10,7 @@ import {
 import {BsSliders} from "react-icons/bs";
 import {Switch} from "@/components/ui/switch"
 import {updateLibrary} from "@/app/(knowledge)/[username]/[libraryId]/actions/update-library";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
 
 const HomepageUpdateButtons = ({id, showDir, setShowDir, text}: {
@@ -20,7 +20,6 @@ const HomepageUpdateButtons = ({id, showDir, setShowDir, text}: {
     setShowDir: Function
 }) => {
     const router = useNavigate()
-    const [_s, setSearchParam] = useSearchParams()
 
     return (
         <>
@@ -61,7 +60,7 @@ const HomepageUpdateButtons = ({id, showDir, setShowDir, text}: {
                         await updateLibrary({id, text, showDir})
                         router(`/malred/${id}`)
                         // router.refresh()
-                        
+
                         toast.success(`更新成功`)
                     }}
                     className={`text-sm`}>更新</span>

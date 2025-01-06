@@ -3,7 +3,7 @@
 import './CodeBlockComponent.scss'
 
 import {NodeViewContent, NodeViewWrapper} from '@tiptap/react'
-import React from 'react'
+
 
 // @ts-ignore
 export default function CodeBlockComponent({node: {attrs: {language: defaultLanguage}}, updateAttributes, extension}) {

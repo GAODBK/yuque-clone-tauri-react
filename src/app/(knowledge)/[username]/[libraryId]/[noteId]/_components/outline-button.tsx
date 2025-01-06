@@ -1,6 +1,6 @@
 // src/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/outline-button.tsx
 'use client';
-import React, {useState} from 'react';
+import  {useState} from 'react';
 import {CiBoxList} from "react-icons/ci";
 
 const OutlineButton = ({outline}: { outline: string }) => {

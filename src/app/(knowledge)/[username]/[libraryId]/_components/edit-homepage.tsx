@@ -1,8 +1,7 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/edit-homepage.tsx
-'use client';
-import React, {useState} from 'react';
+
+import  {useState} from 'react';
 import {BsJournalBookmark} from "react-icons/bs";
-import HomepageRenameInput from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-rename-input";
 import HomepageUpdateButtons from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-update-buttons";
 import HomepageEditText from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-edit-text";
 import {Library} from "@prisma/client";

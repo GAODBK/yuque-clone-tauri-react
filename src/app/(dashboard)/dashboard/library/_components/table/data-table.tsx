@@ -1,5 +1,4 @@
 // src/app/(dashboard)/dashboard/library/_components/table/data-table.tsx
-"use client"
 
 import * as React from "react"
 import {
@@ -7,7 +6,6 @@ import {
     SortingState,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     getSortedRowModel,
     ColumnFiltersState,
     getFilteredRowModel,

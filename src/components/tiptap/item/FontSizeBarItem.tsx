@@ -1,5 +1,5 @@
 // src/components/tiptap/item/FontSizeBarItem.tsx
-import React, {useState} from 'react';
+import  {useState} from 'react';
 import {MinusIcon, PlusIcon} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {useEditorStore} from "@/hooks/use-editor-store";

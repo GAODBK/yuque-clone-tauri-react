@@ -1,11 +1,11 @@
 // src/components/tiptap/extensions/DrawioComponent.tsx
-'use client';
 
 import {NodeViewWrapper, NodeViewContent} from '@tiptap/react'
 import {DrawIoEmbed} from 'react-drawio';
 
 // @ts-ignore
 export default props => {
+    // @ts-ignore
     const increase = () => {
         props.updateAttributes({
             // count: props.node.attrs.count + 1,

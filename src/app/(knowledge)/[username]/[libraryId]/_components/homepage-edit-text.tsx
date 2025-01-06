@@ -1,15 +1,11 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-edit-text.tsx
-'use client';
 
-import {Library} from "@prisma/client";
-import {RichTextEditor, Link} from '@mantine/tiptap';
-import {BubbleMenu, EditorContent, FloatingMenu, useEditor} from '@tiptap/react';
+import {RichTextEditor } from '@mantine/tiptap';
+import {BubbleMenu,  FloatingMenu, useEditor} from '@tiptap/react';
 import {
     Select,
     SelectContent,
-    SelectItem,
     SelectTrigger,
-    SelectValue,
 } from "@/components/ui/select"
 import '@mantine/core/styles.css';
 import {TiptapExtensions} from "@/lib/constants";

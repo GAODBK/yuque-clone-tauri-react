@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import NotesListEditedNotesTable from "@/app/(dashboard)/_components/notes-list-edited-notes-table";
 import {API_BASE_PATH} from "@/lib/constants.ts";
-import {useParams, useSearchParams} from "react-router-dom";
+import {  useSearchParams} from "react-router-dom";
 
 const NotesList = () => {
     // let params = useParams()

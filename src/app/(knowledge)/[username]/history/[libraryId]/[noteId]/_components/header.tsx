@@ -1,10 +1,10 @@
 // src/app/(knowledge)/[username]/history/[libraryId]/[noteId]/_components/header.tsx
-'use client';
+
 import {NoteHistory} from '@prisma/client';
 
 import {FaChevronLeft} from "react-icons/fa";
 import {backToHistory} from "@/app/(knowledge)/[username]/history/[libraryId]/[noteId]/actions/back-to-history";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,7 +20,6 @@ import toast from 'react-hot-toast';
 
 const Header = ({history}: { history: NoteHistory | undefined }) => {
     const router = useNavigate()
-    const [_s, setSearchParam] = useSearchParams()
 
     return (
         <div className={`sticky z-50 top-0 h-16 bg-white p-2 border-b shadow-md px-4 w-full
@@ -57,7 +56,7 @@ const Header = ({history}: { history: NoteHistory | undefined }) => {
                                 // @ts-ignore
                                 router(`/malred/${history.note.libraryId}/${history.noteId}`)
                                 // router.refresh()
-                                
+
                                 toast.success(`恢复成功`)
                             }}>Continue</AlertDialogAction>
                     </AlertDialogFooter>

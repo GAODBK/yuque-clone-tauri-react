@@ -23,6 +23,7 @@ const Video = Node.create({
         return [
             {
                 tag: 'video',
+// @ts-ignore
                 getAttrs: node => ({
                     // Ensure autoplay is not set
                     autoplay: false,

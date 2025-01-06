@@ -1,5 +1,5 @@
 // src/components/tiptap/item/TableBarItem.tsx
-import React, {useState} from 'react';
+import  {useState} from 'react';
 import {DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import {Sheet} from "lucide-react";
 import {useEditorStore} from "@/hooks/use-editor-store";
