@@ -53,8 +53,8 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                         <TableCell className={`w-[34vw] p-6`}>
                             <div className={`h-6 gap-x-2 flex items-center`}>
                                 <FcFile className={`size-6`}/>
-                                <span>{item.name}</span>
-                                <Link to={`/username/knowledgeId/noteId`}
+                                <span className={`cursor-pointer`}>{item.name}</span>
+                                <Link to={`/malred/${item.libraryId}/${item.id}`}
                                       className={`group-hover:block hidden`}>
                                     <GoPencil className={`size-4`}/>
                                 </Link>

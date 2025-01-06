@@ -15,7 +15,7 @@ import {API_BASE_PATH} from "@/lib/constants.ts";
 
 const KnowledgeNotePage = () => {
     let params = useParams()
-    let [searchParams,_set] = useSearchParams()
+    let [searchParams, _set] = useSearchParams()
 
     const [note, setNote] = useState<Note | undefined>()
     const [data, setData] = useState()
@@ -73,7 +73,7 @@ const KnowledgeNotePage = () => {
                                             id={`tiptap-content`}
                                             className={`p-12 prose-lg`}
                                             dangerouslySetInnerHTML={{
-                                                __html: rich
+                                                __html: (rich)
                                             }}/>
                                         <div className={`flex-1`}/>
                                         <OutlineButton outline={outline}/>

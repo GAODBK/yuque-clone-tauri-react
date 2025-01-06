@@ -48,7 +48,7 @@ const LibraryList = ({view, libraries}: {
                 <TabsContent value="my" className={`my-6 w-full flex-wrap flex flex-row items-center gap-4`}>
                     {view !== 'list' && libraries && libraries.map(i => (
                         <div key={i.id}
-                             className={`rounded-md h-44 border flex flex-col`}>
+                             className={`w-[32%] rounded-md h-44 border flex flex-col`}>
                             <Link
                                 to={`/malred/${i.id}`}
                                 className={`h-20 w-96 cursor-pointer group items-center 
@@ -70,7 +70,7 @@ const LibraryList = ({view, libraries}: {
                                         className={`size-6 group-hover:block hidden`}/>
                                 </div>
                             </Link>
-                            <ul className={`mb-4 pl-5 pr-4 space-y-2`}>
+                            <ul className={`max-w-full mb-4 pl-5 pr-4 space-y-2`}>
                                 {/*@ts-ignore*/}
                                 {i.Note && i.Note.slice(0, 3).map((n: Note) => (
                                     <li key={n.id}
@@ -80,7 +80,9 @@ const LibraryList = ({view, libraries}: {
                                                 className={`
                                             flex justify-between hover:text-slate-600 text-sm text-slate-600/60
                                             `}>
-                                                <span className={``}>{n.name}</span>
+                                                <span className={`
+                                                max-w-[65%] truncate
+                                                `}>{n.name}</span>
                                                 <span>{format(n.createdAt, 'yyyy-MM-dd HH:mm')}</span>
                                             </div>
                                         </Link>

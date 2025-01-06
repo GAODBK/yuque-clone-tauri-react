@@ -61,9 +61,10 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                             <ContextMenu>
                                                 <ContextMenuTrigger>
                                                     <div
+                                                        title={item.name}
                                                         className={cn(
                                                             `w-full text-sm p-2 pt-2 px-${level + 4}
-                                                     hover:bg-gray-300/30 rounded-md`,
+                                                     hover:bg-gray-300/30 rounded-md truncate`,
                                                             pathname === `/malred/${libraryId}/${item.id}`
                                                             && `bg-gray-300/30`
                                                         )}
@@ -135,9 +136,10 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                 <ContextMenu>
                                     <ContextMenuTrigger key={item.id}>
                                         <div
+                                            title={item.name}
                                             className={cn(
                                                 `w-full text-sm p-2 pt-2 px-${level + 4}
-                                                hover:bg-gray-300/30 rounded-md`,
+                                                hover:bg-gray-300/30 rounded-md truncate`,
                                                 pathname === `/malred/${libraryId}/${item.id}` && `bg-gray-300/30`
                                             )}
                                             key={item.id}>
