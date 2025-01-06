@@ -1,5 +1,5 @@
 // src/components/tiptap/bar/MantineFloatingToolbar.tsx
-'use client';
+
 import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import {FloatingMenu,} from "@tiptap/react";
 import {RichTextEditor} from "@mantine/tiptap";
@@ -8,7 +8,6 @@ import MathButton from "../item/MathButton";
 import VideoBarItem from "../item/VideoBarItem";
 import ImageBarItem from "../item/ImageBarItem";
 import TableBarItem from "../item/TableBarItem";
-import DrawioBarItem from "@/components/tiptap/item/DrawioBarItem";
 
 // @ts-ignore
 export default function MantineFloatingToolbar({editor}) {
