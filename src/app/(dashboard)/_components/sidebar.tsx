@@ -1,6 +1,6 @@
 // src/app/(dashboard)/_components/sidebar.tsx
 
-
+import {RiRobot2Line} from "react-icons/ri";
 import {GoChevronDown} from "react-icons/go";
 import {HiOutlineBellAlert} from "react-icons/hi2";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
@@ -18,7 +18,7 @@ import {
     CommandList,
     CommandSeparator,
 } from "@/components/ui/command"
-import {BsFillBoxFill } from "react-icons/bs";
+import {BsFillBoxFill} from "react-icons/bs";
 import {Link} from 'react-router-dom';
 import SidebarSearchInput from "@/app/(dashboard)/_components/sidebar-search-input";
 import SidebarRoutes from "@/app/(dashboard)/_components/sidebar-routes";
@@ -83,6 +83,23 @@ const Sidebar = () => {
                                                     <div className={`flex flex-col justify-center`}>
                                                         <span>malred</span>
                                                         <span className={`text-xs`}>1 成员</span>
+                                                    </div>
+                                                </Link>
+                                            </CommandItem>
+                                        </CommandGroup>
+                                        <CommandSeparator/>
+                                        <CommandGroup heading='AI'>
+                                            <CommandItem>
+                                                <Link
+                                                    to={`/ai/chat`}
+                                                    className={`gap-x-2 flex items-center`}>
+                                                    <div className={`flex items-center justify-center 
+                                                size-7 bg-sky-400 rounded-md`}>
+                                                        <RiRobot2Line className={`text-white cursor-pointer size-5`}/>
+                                                    </div>
+                                                    <div className={`flex flex-col justify-center`}>
+                                                        <span>大模型聊天</span>
+                                                        <span className={`text-xs`}>RAG问答</span>
                                                     </div>
                                                 </Link>
                                             </CommandItem>

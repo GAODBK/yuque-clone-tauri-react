@@ -102,7 +102,7 @@ const KnowledgeLibraryPage = () => {
             const json = await res.json();
             setLibrary(json.library)
         })()
-    }, [])
+    }, [searchParams])
     if (!library) {
         return
     }

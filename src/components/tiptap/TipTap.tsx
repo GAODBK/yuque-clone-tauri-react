@@ -181,7 +181,7 @@ const TipTap = ({description, onChange, slug, onSubmit, provider}: {
                 <MantineBubbleToolbar editor={editor}/>
                 <MantineFloatingToolbar editor={editor}/>
                 {/*<RichTextEditor.Toolbar sticky stickyOffset={60}>*/}
-                <RichTextEditor.Toolbar sticky stickyOffset={0}>
+                <RichTextEditor.Toolbar sticky stickyOffset={56}>
                     <BarItems editor={editor}/>
                 </RichTextEditor.Toolbar>
                 <RichTextEditor.Content/>

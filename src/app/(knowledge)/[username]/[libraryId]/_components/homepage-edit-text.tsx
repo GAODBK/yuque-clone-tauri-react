@@ -1,22 +1,18 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-edit-text.tsx
 
-import {RichTextEditor } from '@mantine/tiptap';
-import {BubbleMenu,  FloatingMenu, useEditor} from '@tiptap/react';
-import {
-    Select,
-    SelectContent,
-    SelectTrigger,
-} from "@/components/ui/select"
 import '@mantine/core/styles.css';
-import {TiptapExtensions} from "@/lib/constants";
-import EmojiPickerBarItem from "@/components/tiptap/item/EmojiPickerBarItem";
+import TipTap from "@/components/tiptap/TipTap.tsx";
+import * as Y from "yjs";
+import {IndexeddbPersistence} from "y-indexeddb";
+import {HocuspocusProvider} from "@hocuspocus/provider";
+import {useEditorStore} from "@/hooks/use-editor-store.ts";
 
-const HomepageEditText = ({text, setText}: {
+const HomepageEditText = ({text, name, setText}: {
     text: string
+    name: string
     setText: Function
 }) => {
-
-    const editor = useEditor({
+    /*const editor = useEditor({
         // @ts-ignore
         extensions: [
             ...TiptapExtensions
@@ -29,11 +25,39 @@ const HomepageEditText = ({text, setText}: {
 
     if (!editor) {
         return null
-    }
+    }*/
+
+    const {editor} = useEditorStore();
+
+    // 协作
+    const ydoc = new Y.Doc()
+    // Store the Y document in the browser 本地缓存, 再次连接到ws服务器时保存到服务器
+    // 实现第一次打开文档协作时同步旧数据
+    new IndexeddbPersistence(name!, ydoc)
+
+    // Set up the Hocuspocus WebSocket provider
+    // 协作websocket服务器 (local)
+    const provider = new HocuspocusProvider({
+        url: 'ws://127.0.0.1:1234',
+        document: ydoc,
+        name,
+
+        // The onSynced callback ensures initial content is set only once using editor.setContent(), preventing repetitive content loading on editor syncs.
+        onSynced() {
+            if (!editor) return
+
+            if (!ydoc.getMap('config').get('initialContentLoaded') && editor) {
+                ydoc.getMap('config').set('initialContentLoaded', true)
+
+                // editor.commands.setContent('')
+                editor.commands.setContent(text!)
+            }
+        },
+    })
 
     return (
         <div className={`mx-4 h-full prose-lg rounded-md p-2 border`}>
-            <RichTextEditor className={`h-full`} editor={editor}>
+            {/*<RichTextEditor className={`h-full`} editor={editor}>
                 {editor && (
                     <BubbleMenu editor={editor}>
                         <RichTextEditor.ControlsGroup>
@@ -90,7 +114,14 @@ const HomepageEditText = ({text, setText}: {
                 </RichTextEditor.Toolbar>
 
                 <RichTextEditor.Content/>
-            </RichTextEditor>
+            </RichTextEditor>*/}
+            <TipTap
+                provider={provider}
+                onSubmit={async () => {
+                }}
+                slug={name}
+                description={text}
+                onChange={(richText) => setText(richText)}/>
         </div>
     );
 };

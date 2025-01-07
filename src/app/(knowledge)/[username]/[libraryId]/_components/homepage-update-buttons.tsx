@@ -58,7 +58,7 @@ const HomepageUpdateButtons = ({id, showDir, setShowDir, text}: {
                 <span
                     onClick={async () => {
                         await updateLibrary({id, text, showDir})
-                        router(`/malred/${id}`)
+                        router(`/malred/${id}?random=${Math.random()}`)
                         // router.refresh()
 
                         toast.success(`更新成功`)

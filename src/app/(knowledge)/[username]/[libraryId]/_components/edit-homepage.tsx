@@ -1,6 +1,6 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/edit-homepage.tsx
 
-import  {useState} from 'react';
+import {useState} from 'react';
 import {BsJournalBookmark} from "react-icons/bs";
 import HomepageUpdateButtons from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-update-buttons";
 import HomepageEditText from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-edit-text";
@@ -28,6 +28,7 @@ const EditHomepage = ({library}: { library: Library }) => {
             </div>
             <div className={`h-full p-4 w-full`}>
                 <HomepageEditText
+                    name={library.name}
                     text={text}
                     setText={setText}
                 />

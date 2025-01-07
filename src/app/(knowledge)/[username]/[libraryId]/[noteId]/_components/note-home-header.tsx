@@ -42,7 +42,7 @@ const NoteHomeHeader = ({id, text, libraryId, name}: {
 }) => {
 
     return (
-        <div className={`h-14 border-b p-2 flex justify-between items-center`}>
+        <div className={`h-14 border-b p-2 flex justify-between items-center sticky top-0 z-50 bg-white`}>
             <NoteHomeHeaderNameInput id={id} name={name}/>
             <div className={`flex items-center gap-x-3`}>
                 <NoteHomeHeaderAIButton id={id} libraryId={libraryId}/>

@@ -16,6 +16,7 @@ import KnowledgeLibraryPage from "@/app/(knowledge)/[username]/[libraryId]/knowl
 import KnowledgeNotePage from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/knowledgeNotePage.tsx";
 import NoteHistoryPage from "@/app/(knowledge)/[username]/history/[libraryId]/[noteId]/noteHistoryPage.tsx";
 import {Toaster} from "react-hot-toast";
+import AiChatPage from "@/app/(ai)/chat.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                 <Router>
                     <Routes>
                         <Route path="/" element={<App/>}/>
+                        <Route path={'ai/chat'} element={<AiChatPage/>}/>
                         <Route path=':username'>
                             <Route path={'history'}>
                                 <Route path={':libraryId'}>
@@ -62,7 +64,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                     </Routes>
                 </Router>
                 <Outlet/>
-                <Toaster />
+                <Toaster/>
             </div>
         </MantineProvider>
     </React.StrictMode>,

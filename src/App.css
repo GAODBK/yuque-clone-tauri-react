@@ -1,6 +1,7 @@
 @import 'highlight.js/styles/tokyo-night-dark.css';
 /*@import 'highlight.js/styles/vs2015.css';*/
 @import '@mantine/core/styles.css';
+@import 'katex.css';
 /*@import '@/app/(knowledge)/[username]/[libraryId]/style.scss';*/
 
 @tailwind base;
