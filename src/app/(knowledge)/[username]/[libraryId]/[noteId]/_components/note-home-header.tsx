@@ -46,7 +46,10 @@ const NoteHomeHeader = ({id, text, libraryId, name}: {
             <NoteHomeHeaderNameInput id={id} name={name}/>
             <div className={`flex items-center gap-x-3`}>
                 <NoteHomeHeaderAIButton id={id} libraryId={libraryId}/>
+                {/*协作*/}
+                <Link to={`/malred/${libraryId}/${id}/colab`}>
                 <FaUserPlus className={`size-6`}/>
+                </Link>
                 <span/>
                 <span className={`py-1.5 h-8 px-4 font-semibold rounded-md text-sm border`}>
                     分享

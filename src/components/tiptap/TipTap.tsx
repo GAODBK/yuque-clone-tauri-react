@@ -1,101 +1,156 @@
 // src/components/tiptap/TipTap.tsx
 
 import Text from '@tiptap/extension-text'
-import {useEffect, useRef, useState} from 'react';
-import {useEditorStore} from "@/hooks/use-editor-store";
-import {useEditor} from "@tiptap/react";
-import {API_BASE_PATH, getRandomColor, getRandomName, TiptapExtensions} from '@/lib/constants';
-import {Collaboration} from "@tiptap/extension-collaboration";
-import {CollaborationCursor} from "@tiptap/extension-collaboration-cursor";
-import {useCompletion} from "ai/react"; // pnpm i ai@3.4.33
-import {RichTextEditor} from '@mantine/tiptap';
+import { useEffect, useRef, useState } from 'react';
+import { useEditorStore } from "@/hooks/use-editor-store";
+import { useEditor } from "@tiptap/react";
+import { API_BASE_PATH, getRandomColor, getRandomName, TiptapExtensions } from '@/lib/constants';
+import { Collaboration } from "@tiptap/extension-collaboration";
+import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
+import { useCompletion } from "ai/react"; // pnpm i ai@3.4.33
+import { RichTextEditor } from '@mantine/tiptap';
 import StarterKit from '@tiptap/starter-kit';
 
 import '@mantine/core/styles.css';
-import {generateImage, generateImageAPI, pasteImage} from "@/lib/utils";
+import { generateImage, generateImageAPI, pasteImage } from "@/lib/utils";
 import MantineFloatingToolbar from "@/components/tiptap/bar/MantineFloatingToolbar";
 import MantineBubbleToolbar from "@/components/tiptap/bar/MantineBubbleToolbar";
 import BarItems from "@/components/tiptap/item/BarItems";
 
-const TipTap = ({description, onChange, slug, onSubmit, provider}: {
+const TipTap = ({ description, onChange, slug, onSubmit, provider }: {
     description: string
     onChange: (richText: string) => void
     onSubmit: () => Promise<void>
     slug: string
     provider?: any
 }) => {
-    const {setEditor} = useEditorStore()
+    const { setEditor } = useEditorStore()
 
     // 编辑器设置, 比如使用哪些插件, 支持哪些功能
     const editor = useEditor({
-        extensions: [
-            ...TiptapExtensions,
-            StarterKit,
-            // customText,
-            Text.extend({
-                addKeyboardShortcuts() {
-                    return {
-                        'Shift-a': () => {
-                            // console.log('activate AI')
-                            // take the last 30 words
-                            // const prompt = this.editor.getText().split(' ').slice(-30).join(' ')
-                            const prompt = this.editor.getText().slice(-120)
-                            // const prompt = this.editor.getText().slice(-30)
-                            // console.log(prompt)
-                            complete(prompt)
-                            return true
-                        },
-                        'Ctrl-shift-a': () => {
-                            const prompt = this.editor.getText().slice(-120);
-                            generateImageAPI(prompt)
-                                .then(async response => {
-                                    const data = await response.json();
-                                    if (response.ok) {
-                                        console.log('Image URL:', data.url);
-                                        // 在页面上显示图片
-                                        generateImage(this.editor, data.url);
-                                    } else {
-                                        console.error('Error:', data.error);
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Fetch error:', error);
-                                });
-                            return true
-                        },
-                        'Ctrl-shift-s': () => {
-                            onChange(this.editor.getHTML())
-                            return true
-                        },
-                        'Ctrl-z': () => {
-                            this.editor.commands.undo();
-                            return true
-                        },
-                        'Ctrl-y': () => {
-                            this.editor.commands.redo();
-                            return true
-                        },
-                        'Ctrl-shift-z': () => {
-                            this.editor.commands.redo();
-                            return true
+        extensions:
+            provider ? [
+                ...TiptapExtensions,
+                StarterKit,
+                // customText,
+                Text.extend({
+                    addKeyboardShortcuts() {
+                        return {
+                            'Shift-a': () => {
+                                // console.log('activate AI')
+                                // take the last 30 words
+                                // const prompt = this.editor.getText().split(' ').slice(-30).join(' ')
+                                const prompt = this.editor.getText().slice(-120)
+                                // const prompt = this.editor.getText().slice(-30)
+                                // console.log(prompt)
+                                complete(prompt)
+                                return true
+                            },
+                            'Ctrl-shift-a': () => {
+                                const prompt = this.editor.getText().slice(-120);
+                                generateImageAPI(prompt)
+                                    .then(async response => {
+                                        const data = await response.json();
+                                        if (response.ok) {
+                                            console.log('Image URL:', data.url);
+                                            // 在页面上显示图片
+                                            generateImage(this.editor, data.url);
+                                        } else {
+                                            console.error('Error:', data.error);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Fetch error:', error);
+                                    });
+                                return true
+                            },
+                            'Ctrl-shift-s': () => {
+                                onChange(this.editor.getHTML())
+                                return true
+                            },
+                            'Ctrl-z': () => {
+                                this.editor.commands.undo();
+                                return true
+                            },
+                            'Ctrl-y': () => {
+                                this.editor.commands.redo();
+                                return true
+                            },
+                            'Ctrl-shift-z': () => {
+                                this.editor.commands.redo();
+                                return true
+                            }
                         }
                     }
-                }
-            }),
-            // Register the document with Tiptap
-            Collaboration.configure({
-                document: provider.document,
-            }),
-            // Register the collaboration cursor extension
-            CollaborationCursor.configure({
-                provider: provider,
-                user: {
-                    // todo: username
-                    name: getRandomName(),
-                    color: getRandomColor(),
-                },
-            }),
-        ],
+                }),
+                // Register the document with Tiptap
+                Collaboration.configure({
+                    document: provider.document,
+                }),
+                // Register the collaboration cursor extension
+                CollaborationCursor.configure({
+                    provider: provider,
+                    user: {
+                        // todo: username
+                        name: getRandomName(),
+                        color: getRandomColor(),
+                    },
+                }),
+            ] : [
+                ...TiptapExtensions,
+                StarterKit,
+                // customText,
+                Text.extend({
+                    addKeyboardShortcuts() {
+                        return {
+                            'Shift-a': () => {
+                                // console.log('activate AI')
+                                // take the last 30 words
+                                // const prompt = this.editor.getText().split(' ').slice(-30).join(' ')
+                                const prompt = this.editor.getText().slice(-120)
+                                // const prompt = this.editor.getText().slice(-30)
+                                // console.log(prompt)
+                                complete(prompt)
+                                return true
+                            },
+                            'Ctrl-shift-a': () => {
+                                const prompt = this.editor.getText().slice(-120);
+                                generateImageAPI(prompt)
+                                    .then(async response => {
+                                        const data = await response.json();
+                                        if (response.ok) {
+                                            console.log('Image URL:', data.url);
+                                            // 在页面上显示图片
+                                            generateImage(this.editor, data.url);
+                                        } else {
+                                            console.error('Error:', data.error);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Fetch error:', error);
+                                    });
+                                return true
+                            },
+                            'Ctrl-shift-s': () => {
+                                onChange(this.editor.getHTML())
+                                return true
+                            },
+                            'Ctrl-z': () => {
+                                this.editor.commands.undo();
+                                return true
+                            },
+                            'Ctrl-y': () => {
+                                this.editor.commands.redo();
+                                return true
+                            },
+                            'Ctrl-shift-z': () => {
+                                this.editor.commands.redo();
+                                return true
+                            }
+                        }
+                    }
+                }),
+            ],
         autofocus: true,
         // 数据库获取富文本, 直接设置
         content: description,
@@ -107,31 +162,31 @@ const TipTap = ({description, onChange, slug, onSubmit, provider}: {
             }
         },
         enableContentCheck: true,
-        onUpdate({editor}) {
+        onUpdate({ editor }) {
             // 保存到外部变量, 方便外部保存数据库
             onChange(editor.getHTML())
             setEditor(editor)
         },
         // error时退出
-        onContentError({disableCollaboration}) {
+        onContentError({ disableCollaboration }) {
             disableCollaboration()
         },
-        onSelectionUpdate({editor}) {
+        onSelectionUpdate({ editor }) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
         },
-        onTransaction({editor}) {
+        onTransaction({ editor }) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
         },
-        onFocus({editor}) {
+        onFocus({ editor }) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
         },
-        onBlur({editor}) {
+        onBlur({ editor }) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
@@ -139,7 +194,7 @@ const TipTap = ({description, onChange, slug, onSubmit, provider}: {
     })
 
     // ai代写
-    const {complete, completion} = useCompletion({
+    const { complete, completion } = useCompletion({
         api: `${API_BASE_PATH}/api/completion`,
     })
 
@@ -178,13 +233,13 @@ const TipTap = ({description, onChange, slug, onSubmit, provider}: {
     return (
         <>
             <RichTextEditor editor={editor}>
-                <MantineBubbleToolbar editor={editor}/>
-                <MantineFloatingToolbar editor={editor}/>
+                <MantineBubbleToolbar editor={editor} />
+                <MantineFloatingToolbar editor={editor} />
                 {/*<RichTextEditor.Toolbar sticky stickyOffset={60}>*/}
                 <RichTextEditor.Toolbar sticky stickyOffset={56}>
-                    <BarItems editor={editor}/>
+                    <BarItems editor={editor} />
                 </RichTextEditor.Toolbar>
-                <RichTextEditor.Content/>
+                <RichTextEditor.Content />
             </RichTextEditor>
 
             {/* 底部字数统计 */}

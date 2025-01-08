@@ -252,7 +252,7 @@ importers:
         specifier: ^2
         version: 2.2.2
       '@tiptap/core':
-        specifier: ^2.4.0
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/pm@2.11.0)
       '@tiptap/extension-blockquote':
         specifier: ^2.9.1
@@ -324,23 +324,23 @@ importers:
         specifier: ^2.4.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
       '@tiptap/extension-table':
-        specifier: ^2.6.6
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))(@tiptap/pm@2.11.0)
       '@tiptap/extension-table-cell':
-        specifier: ^2.6.6
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
       '@tiptap/extension-table-header':
-        specifier: ^2.6.6
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
       '@tiptap/extension-table-row':
-        specifier: ^2.6.6
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
       '@tiptap/extension-task-item':
-        specifier: ^2.6.6
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))(@tiptap/pm@2.11.0)
       '@tiptap/extension-task-list':
-        specifier: ^3.0.0
-        version: 3.0.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
+        specifier: ^2.11.0
+        version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
       '@tiptap/extension-text':
         specifier: ^2.4.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
@@ -354,16 +354,16 @@ importers:
         specifier: 2.10.2
         version: 2.10.2(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))
       '@tiptap/pm':
-        specifier: ^2.10.4
+        specifier: ^2.11.0
         version: 2.11.0
       '@tiptap/react':
-        specifier: ^2.10.4
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))(@tiptap/pm@2.11.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tiptap/starter-kit':
-        specifier: ^2.10.4
+        specifier: ^2.11.0
         version: 2.11.0
       '@tiptap/suggestion':
-        specifier: ^2.4.0
+        specifier: ^2.11.0
         version: 2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))(@tiptap/pm@2.11.0)
       '@types/react':
         specifier: ^18
@@ -621,7 +621,7 @@ importers:
         specifier: ^2.0.4
         version: 2.1.0(yjs@13.6.21)
       yjs:
-        specifier: ^13.6.20
+        specifier: ^13.6.21
         version: 13.6.21
       zod:
         specifier: ^3.24.1
@@ -3346,11 +3346,10 @@ packages:
       '@tiptap/core': ^2.7.0
       '@tiptap/pm': ^2.7.0
 
-  '@tiptap/extension-task-list@3.0.0':
-    resolution: {integrity: sha512-Igs5SuOKxC9EcrEuoevDUDFKMeXPrchm5wGKddb86ZgDu5PwphxAtYFzwILyBXEM9yR/KdCtyTzGHf5RKW1kWg==}
-    deprecated: There are no breaking changes in this packages, we meant to release 2.5.0
+  '@tiptap/extension-task-list@2.11.0':
+    resolution: {integrity: sha512-+dZRjeXLXxyliFt3J7uQADxfOwi6ntyepVM+ri1rnmIaqVZUHJbUFodOc0LivI+Z5iZZ10u3TId8gehqWJHD+w==}
     peerDependencies:
-      '@tiptap/core': ^3.0.0
+      '@tiptap/core': ^2.7.0
 
   '@tiptap/extension-text-align@2.11.0':
     resolution: {integrity: sha512-VRXBqO17po6ddqhoWLBa2aCX/tqHdzdKPLfjnBy1fF8hjQKbidzjMWhb4CMm31ApvJjKK/DTkM3EnyYS/XDhng==}
@@ -10746,7 +10745,7 @@ snapshots:
       '@tiptap/core': 2.11.0(@tiptap/pm@2.11.0)
       '@tiptap/pm': 2.11.0
 
-  '@tiptap/extension-task-list@3.0.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))':
+  '@tiptap/extension-task-list@2.11.0(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))':
     dependencies:
       '@tiptap/core': 2.11.0(@tiptap/pm@2.11.0)
 

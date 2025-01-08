@@ -81,7 +81,9 @@ import {useEffect, useState} from "react";
 import {Note} from "@prisma/client";
 import Layout from "@/app/(knowledge)/[username]/[libraryId]/layout.tsx";
 import {API_BASE_PATH} from "@/lib/constants.ts";
-import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
+// import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
+import '@mantine/core/styles.css';
+import './note.css'
 
 const KnowledgeNotePage = () => {
     let params = useParams()

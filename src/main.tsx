@@ -17,6 +17,7 @@ import KnowledgeNotePage from "@/app/(knowledge)/[username]/[libraryId]/[noteId]
 import NoteHistoryPage from "@/app/(knowledge)/[username]/history/[libraryId]/[noteId]/noteHistoryPage.tsx";
 import {Toaster} from "react-hot-toast";
 import AiChatPage from "@/app/(ai)/chat.tsx";
+import ColabPage from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/colab/colab-page.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                                 <Route path={''} element={<KnowledgeLibraryPage/>}/>
                                 <Route path={':noteId'}>
                                     <Route path={''} element={<KnowledgeNotePage/>}/>
+                                    <Route path={'colab'} element={<ColabPage/>}/>
                                 </Route>
                             </Route>
                         </Route>
