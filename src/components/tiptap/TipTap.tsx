@@ -238,7 +238,7 @@ const TipTap = ({description, onChange, slug, onSubmit, provider}: {
                 {/*<RichTextEditor.Toolbar sticky stickyOffset={60}>*/}
                 <RichTextEditor.Toolbar sticky stickyOffset={
                     // 协作模式下整个toolbar在顶部(协作页没有header)
-                    provider ? 56 : 0
+                    provider ? 0 : 56
                 }>
                     <BarItems editor={editor}/>
                 </RichTextEditor.Toolbar>
