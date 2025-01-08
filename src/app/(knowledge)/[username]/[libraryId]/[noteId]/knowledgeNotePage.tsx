@@ -84,6 +84,7 @@ import {API_BASE_PATH} from "@/lib/constants.ts";
 // import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import '@mantine/core/styles.css';
 import './note.css'
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 
 const KnowledgeNotePage = () => {
     let params = useParams()
@@ -141,13 +142,15 @@ const KnowledgeNotePage = () => {
                             <div className={`px-6 py-2 w-full flex justify-between`}>
                                 {note?.text &&
                                     <>
-                                        <div
-                                            id={`tiptap-content`}
-                                            className={`p-12 prose-lg`}
-                                            dangerouslySetInnerHTML={{
-                                                __html: (rich)
-                                            }}/>
-                                        <div className={`flex-1`}/>
+                                        <ScrollArea className={`h-[90vh] w-full relative`}>
+                                            <div
+                                                id={`tiptap-content`}
+                                                className={`p-12 prose-lg`}
+                                                dangerouslySetInnerHTML={{
+                                                    __html: (rich)
+                                                }}/>
+                                            <div className={`flex-1`}/>
+                                        </ScrollArea>
                                         <OutlineButton outline={outline}/>
                                     </>
                                 }

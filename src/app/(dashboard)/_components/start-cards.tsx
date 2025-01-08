@@ -14,7 +14,7 @@ import StarCardNewDocumentItem from "@/app/(dashboard)/_components/star-card-new
 const StartCards = () => {
 
     return (
-        <div className={`p-4 pt-2 flex items-center gap-x-4`}>
+        <div className={`flex-wrap gap-y-4 p-4 pt-2 flex items-center gap-x-4`}>
             <StarCardNewDocumentItem/>
 
             {/*新建知识库*/}

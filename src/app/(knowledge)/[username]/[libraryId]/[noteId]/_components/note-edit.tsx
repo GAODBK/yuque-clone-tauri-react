@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import TipTap from '@/components/tiptap/TipTap'
 import toast from "react-hot-toast";
+import {ScrollArea} from "@/components/ui/scroll-area.tsx";
 
 const NoteEdit = ({ note, libraryId }: { note: Note; libraryId: string }) => {
     const router = useNavigate()
@@ -23,16 +24,18 @@ const NoteEdit = ({ note, libraryId }: { note: Note; libraryId: string }) => {
 
     return (
         <div className={`h-full w-full prose-lg p-2`}>
-            <TipTap
-                provider={ undefined}
-                onSubmit={async () => {
-                    await updateNote({ id: note.id, text: richText })
-                    router(`/malred/${libraryId}/${note.id}?random=${Math.random()}`)
-                    toast.success(`保存成功`)
-                }}
-                description={richText} onChange={(richText) => {
+            <ScrollArea className={`w-full h-[90vh]`}>
+                <TipTap
+                    provider={ undefined}
+                    onSubmit={async () => {
+                        await updateNote({ id: note.id, text: richText })
+                        router(`/malred/${libraryId}/${note.id}?random=${Math.random()}`)
+                        toast.success(`保存成功`)
+                    }}
+                    description={richText} onChange={(richText) => {
                     setRichText(richText)
                 }} slug={note.name!} />
+            </ScrollArea>
         </div>
     );
 };
