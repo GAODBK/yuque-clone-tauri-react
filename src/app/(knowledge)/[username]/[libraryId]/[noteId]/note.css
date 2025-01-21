@@ -173,11 +173,14 @@
 
   blockquote {
     font-weight: 100;
-    font-size: 2rem; 
+    /*font-size: 2rem;*/
+    font-size: 1.7rem;
     line-height: 1.4;
     position: relative;
     margin: 0;
     padding: .5rem;
+    border-radius: 6px;
+    background: rgba(159, 225, 225, 0.38);
   }
 
   blockquote:before,

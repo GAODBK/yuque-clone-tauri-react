@@ -1,30 +1,38 @@
 // src/components/tiptap/TipTap.tsx
 
 import Text from '@tiptap/extension-text'
-import { useEffect, useRef, useState } from 'react';
-import { useEditorStore } from "@/hooks/use-editor-store";
-import { useEditor } from "@tiptap/react";
-import { API_BASE_PATH, getRandomColor, getRandomName, TiptapExtensions } from '@/lib/constants';
-import { Collaboration } from "@tiptap/extension-collaboration";
-import { CollaborationCursor } from "@tiptap/extension-collaboration-cursor";
-import { useCompletion } from "ai/react"; // pnpm i ai@3.4.33
-import { RichTextEditor } from '@mantine/tiptap';
+import {useEffect, useRef, useState} from 'react';
+import {useEditorStore} from "@/hooks/use-editor-store";
+import {useEditor} from "@tiptap/react";
+import {API_BASE_PATH, getRandomColor, getRandomName, TiptapExtensions} from '@/lib/constants';
+import {Collaboration} from "@tiptap/extension-collaboration";
+import {CollaborationCursor} from "@tiptap/extension-collaboration-cursor";
+import {useCompletion} from "ai/react"; // pnpm i ai@3.4.33
+import {RichTextEditor} from '@mantine/tiptap';
 import StarterKit from '@tiptap/starter-kit';
+import {useDebounce} from "@/lib/useDebounce";
 
 import '@mantine/core/styles.css';
-import { generateImage, generateImageAPI, pasteImage } from "@/lib/utils";
+import {generateImage, generateImageAPI, pasteImage} from "@/lib/utils";
 import MantineFloatingToolbar from "@/components/tiptap/bar/MantineFloatingToolbar";
 import MantineBubbleToolbar from "@/components/tiptap/bar/MantineBubbleToolbar";
 import BarItems from "@/components/tiptap/item/BarItems";
+import {useMutation} from "@tanstack/react-query";
 
-const TipTap = ({ description, onChange, slug, onSubmit, provider }: {
+const TipTap = ({
+                    description, onChange, slug, onSubmit,
+                    onSave = async () => {
+                    },
+                    provider
+                }: {
     description: string
     onChange: (richText: string) => void
     onSubmit: () => Promise<void>
+    onSave: () => Promise<void>
     slug: string
     provider?: any
 }) => {
-    const { setEditor } = useEditorStore()
+    const {setEditor} = useEditorStore()
 
     // 编辑器设置, 比如使用哪些插件, 支持哪些功能
     const editor = useEditor({
@@ -162,31 +170,31 @@ const TipTap = ({ description, onChange, slug, onSubmit, provider }: {
             }
         },
         enableContentCheck: true,
-        onUpdate({ editor }) {
+        onUpdate({editor}) {
             // 保存到外部变量, 方便外部保存数据库
             onChange(editor.getHTML())
             setEditor(editor)
         },
         // error时退出
-        onContentError({ disableCollaboration }) {
+        onContentError({disableCollaboration}) {
             disableCollaboration()
         },
-        onSelectionUpdate({ editor }) {
+        onSelectionUpdate({editor}) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
         },
-        onTransaction({ editor }) {
+        onTransaction({editor}) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
         },
-        onFocus({ editor }) {
+        onFocus({editor}) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
         },
-        onBlur({ editor }) {
+        onBlur({editor}) {
             // 保存到外部变量, 方便外部保存数据库
             //     onChange(editor.getHTML())
             setEditor(editor)
@@ -194,7 +202,7 @@ const TipTap = ({ description, onChange, slug, onSubmit, provider }: {
     })
 
     // ai代写
-    const { complete, completion } = useCompletion({
+    const {complete, completion} = useCompletion({
         api: `${API_BASE_PATH}/api/completion`,
     })
 
@@ -229,22 +237,42 @@ const TipTap = ({ description, onChange, slug, onSubmit, provider }: {
         // }, [description, isEditable, editor])
     }, [isEditable, editor])
 
+    const saveNote = useMutation({
+        mutationFn: onSave
+    })
+
+    const debouncedEditorState = useDebounce(description, 500)
+
+    useEffect(() => {
+        // save to db
+        if (debouncedEditorState === '') return
+        // @ts-ignore
+        saveNote.mutate(description, {
+            onSuccess: data => {
+                console.log('success update!', data)
+            },
+            onError: err => {
+                console.error(err)
+            }
+        })
+    }, [debouncedEditorState])
+
     if (!editor) return
 
     return (
         <>
             <RichTextEditor editor={editor}>
-                <MantineBubbleToolbar editor={editor} />
-                <MantineFloatingToolbar editor={editor} />
+                <MantineBubbleToolbar editor={editor}/>
+                <MantineFloatingToolbar editor={editor}/>
                 {/*<RichTextEditor.Toolbar sticky stickyOffset={60}>*/}
                 <RichTextEditor.Toolbar sticky stickyOffset={
                     // 协作模式下整个toolbar在顶部(协作页没有header)
                     // provider ? 0 : 56
                     0
                 }>
-                    <BarItems editor={editor} />
+                    <BarItems editor={editor}/>
                 </RichTextEditor.Toolbar>
-                <RichTextEditor.Content />
+                <RichTextEditor.Content/>
             </RichTextEditor>
 
             {/* 底部字数统计 */}

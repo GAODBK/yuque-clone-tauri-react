@@ -60,6 +60,10 @@ const Edit = ({note, libraryId}: { note: Note; libraryId: string }) => {
                     router(`/malred/${libraryId}/${note.id}?random=${Math.random()}`)
                     toast.success(`保存成功`)
                 }}
+                onSave={async () => {
+                    await updateNote({id: note.id, text: richText})
+                    toast.success(`自动保存成功`)
+                }}
                 description={richText} onChange={(richText) => {
                 setRichText(richText)
             }} slug={note.name!}/>
