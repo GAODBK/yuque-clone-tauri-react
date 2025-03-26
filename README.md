@@ -50,7 +50,7 @@
     "@mux/mux-node": "^9.0.1",
     "@mux/mux-player-react": "^3.2.4",
     "@pdf-lib/fontkit": "^1.1.1",
-    "@prisma/client": "^5.7.1",
+    "@/lib/types": "^5.7.1",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
     "@radix-ui/react-aspect-ratio": "^1.1.1",

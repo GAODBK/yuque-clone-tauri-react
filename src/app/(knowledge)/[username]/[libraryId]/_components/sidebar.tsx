@@ -5,7 +5,7 @@ import {HiEllipsisHorizontal} from "react-icons/hi2";
 import {Separator} from "@/components/ui/separator";
 import SidebarSearchInput from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-search-input";
 import SidebarDirList from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-dir-list";
-// import { Note, Library } from '@prisma/client';
+// import { Note, Library } from '@/lib/types';
 import {Note, Library} from '@/lib/types';
 import SidebarHomeItem from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-home-item";
 import {

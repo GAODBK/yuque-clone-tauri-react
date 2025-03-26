@@ -4,15 +4,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import NotesListEditedNotesTable from "@/app/(dashboard)/_components/notes-list-edited-notes-table";
 // import { API_BASE_PATH } from "@/lib/constants.ts";
 import { useSearchParams } from "react-router-dom";
-import { getNotes, getNotesWithLibrary } from '@/lib/utils/db';
+import { getNotesWithLibrary } from '@/lib/utils/db';
 import { Note } from '@/lib/types';
-//import {fetch} from "@tauri-apps/plugin-http";
+//import {fetch} from "@tauri-apps/plugin-http"; 
 
 const NotesList = () => {
     // let params = useParams()
     let [searchParams, _set] = useSearchParams()
 
     const [notes, setNotes] = useState<Note[]>()
+
     useEffect(() => {
         (async () => {
             // const res = await fetch(`${API_BASE_PATH}/api/db/note`)
@@ -35,9 +36,6 @@ const NotesList = () => {
                     <NotesListEditedNotesTable notes={notes!} />
                 </TabsContent>
                 <TabsContent value="viewed">
-                    <div>
-                        1
-                    </div>
                 </TabsContent>
                 <TabsContent value="liked">
                     <div>1</div>

@@ -1,7 +1,7 @@
 // src/app/(dashboard)/dashboard/library/actions/new-library.ts
 
 import { db } from "@/lib/db"
-import { getLibraries } from "@/lib/utils/db";
+import { getLibraryById } from "@/lib/utils/db";
 
 // import {API_BASE_PATH} from "@/lib/constants.ts";
 //import {fetch} from "@tauri-apps/plugin-http";
@@ -27,7 +27,7 @@ export const createLibrary = async (values: {
     // const json = await res.json()
     // return json.library
 
-    await db.execute(
+    const res = await db.execute(
         `INSERT INTO library
                 (name, description, text)
                 VALUES ($1, $2, $3)`,
@@ -37,5 +37,6 @@ export const createLibrary = async (values: {
             ''
         ]
     );
-    return await getLibraries()
+    // return await getLibraries()
+    return await getLibraryById(res.lastInsertId!)
 }

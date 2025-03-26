@@ -29,7 +29,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Link, useNavigate } from 'react-router-dom';
-// import {Library} from "@prisma/client";
+// import {Library} from "@/lib/types";
 import { Library } from "@/lib/types";
 // import { API_BASE_PATH } from "@/lib/constants.ts";
 import { createNote } from "@/app/(knowledge)/[username]/[libraryId]/actions/create-note.ts";
@@ -59,7 +59,7 @@ const StarCardNewDocumentItem = () => {
                         <HiOutlineDocumentPlus className={`m-2 size-5`} />
                         <div className={`flex flex-col items-start`}>
                             <span className={`text-sm font-semibold cursor-pointer`}>新建文档</span>
-                            <span className={`text-xs text-slate-400/80`}>
+                            <span className={`hidden lg:block text-xs text-slate-400/80`}>
                                 文档、表格、画板、数据表
                             </span>
                         </div>
@@ -70,15 +70,17 @@ const StarCardNewDocumentItem = () => {
                 <DropdownMenuContent className={`pl-8 bg-white p-1 text-black w-[16vw] border`}>
                     <div
                         className={`mt-2 rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <GrDocumentText className={`size-4`} />
+                        <GrDocumentText className={`hidden lg:block size-4`} />
                         <Dialog>
                             <DialogTrigger>
-                                <span className={`cursor-pointer`}>新建文档</span>
+                                <span className='lg:text-base text-sm cursor-pointer'>新建文档</span>
                             </DialogTrigger>
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle>
-                                        新建文档
+                                        <span className='lg:text-base text-sm'>
+                                            新建文档
+                                        </span>
                                     </DialogTitle>
                                 </DialogHeader>
                                 <DialogDescription>选择一个知识库</DialogDescription>
@@ -121,19 +123,19 @@ const StarCardNewDocumentItem = () => {
                     </div>
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <LuTableProperties className={`size-4`} />
+                        <LuTableProperties className={`hidden lg:block size-4`} />
                         {/*<FcViewDetails/>*/}
-                        <span>新建表格</span>
+                        <span className='lg:text-base text-sm'>新建表格</span>
                     </div>
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <LuClipboardPenLine className={`size-4`} />
-                        <span>新建画板</span>
+                        <LuClipboardPenLine className={`hidden lg:block size-4`} />
+                        <span className='lg:text-base text-sm'>新建画板</span>
                     </div>
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <BsClipboardData className={`size-4`} />
-                        <span>新建数据表</span>
+                        <BsClipboardData className={`hidden lg:block size-4`} />
+                        <span className='lg:text-base text-sm'>新建数据表</span>
                     </div>
                     <Separator className={`m-2`} />
                     <div

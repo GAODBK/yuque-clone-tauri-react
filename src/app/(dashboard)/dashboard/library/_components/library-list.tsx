@@ -6,7 +6,7 @@ import { BsJournalBookmark } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import LibraryListNewIcons from "@/app/(dashboard)/dashboard/library/_components/library-list-new-icons";
 import LibraryListToggleView from "@/app/(dashboard)/dashboard/library/_components/library-list-toggle-view";
-// import {Library, Note} from "@prisma/client";
+// import {Library, Note} from "@/lib/types";
 import { Library, Note } from "@/lib/types";
 import { format } from "date-fns";
 import LibraryListNewCardButton from "@/app/(dashboard)/dashboard/library/_components/library-list-new-card-button";
@@ -20,6 +20,7 @@ const LibraryList = ({ view, libraries }: {
 }) => {
 
     function getData(): Payment[] {
+        // @ts-ignore
         return libraries.map((l) => ({
             id: l.id,
             name: l.name,

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import Layout from "@/app/(dashboard)/layout.tsx";
 import { Library } from "@/lib/types";
-// import {Library} from "@prisma/client";
+// import {Library} from "@/lib/types";
 // import { API_BASE_PATH } from "@/lib/constants.ts";
 import { getLibraries } from '@/lib/utils/db';
 //import {fetch} from "@tauri-apps/plugin-http";

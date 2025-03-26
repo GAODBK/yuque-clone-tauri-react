@@ -1,6 +1,6 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/homepage-dir-item.tsx
 
-import {Note} from "@prisma/client";
+import {Note} from "@/lib/types";
 import {Link} from 'react-router-dom';
 
 const HomepageDirItem = ({notes, level = 0}: {

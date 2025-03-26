@@ -1,5 +1,5 @@
 // src/app/(knowledge)/[username]/[libraryId]/[noteId]/colab/_components/edit.tsx
-import {Note} from "@prisma/client";
+import {Note} from "@/lib/types";
 import * as Y from "yjs";
 import {IndexeddbPersistence} from "y-indexeddb";
 import {HocuspocusProvider} from "@hocuspocus/provider";

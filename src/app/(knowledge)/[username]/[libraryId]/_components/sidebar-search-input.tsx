@@ -1,7 +1,7 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-search-input.tsx
 
-import {Dialog, DialogContent, DialogTrigger} from "@/components/ui/dialog";
-import {Input} from "@/components/ui/input";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import {
     Command,
     CommandEmpty,
@@ -9,7 +9,7 @@ import {
     CommandInput,
     CommandList,
 } from "@/components/ui/command";
-import {BsClipboardData} from "react-icons/bs";
+import { BsClipboardData } from "react-icons/bs";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -17,17 +17,17 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {GoPlus} from "react-icons/go";
-import {LuBookMarked, LuClipboardPenLine, LuTableProperties} from "react-icons/lu";
-import {FcImport, FcPuzzle} from "react-icons/fc";
-import {RiRobot2Line} from "react-icons/ri";
-import {Library, Note} from '@prisma/client';
+import { GoPlus } from "react-icons/go";
+import { LuBookMarked, LuClipboardPenLine, LuTableProperties } from "react-icons/lu";
+import { FcImport, FcPuzzle } from "react-icons/fc";
+import { RiRobot2Line } from "react-icons/ri";
+import { Library, Note } from '@/lib/types';
 import SidebarSearchInputCommandItem
     from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-search-input-command-item";
 import SidebarSearchInputNewDocItem
     from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-search-input-new-doc-item";
 
-const SidebarSearchInput = ({library, notes}: {
+const SidebarSearchInput = ({ library, notes }: {
     library: Library
     notes: Note[]
 }) => {
@@ -36,17 +36,17 @@ const SidebarSearchInput = ({library, notes}: {
         <div className={`flex items-center gap-x-2 mx-4`}>
             <Dialog>
                 <DialogTrigger asChild>
-                    <Input className={`cursor-pointer h-8 bg-gray-200/40`}/>
+                    <Input className={`cursor-pointer h-8 bg-gray-200/40`} />
                 </DialogTrigger>
                 <DialogContent className={`p-0`}>
                     <Command className="rounded-lg border shadow-md md:min-w-[450px]">
-                        <CommandInput placeholder="搜索笔记"/>
+                        <CommandInput placeholder="搜索笔记" />
                         <CommandList>
                             <CommandEmpty>No results found.</CommandEmpty>
                             <CommandGroup heading="页面">
                                 <SidebarSearchInputCommandItem
                                     notes={notes}
-                                    libraryId={library.id}
+                                    libraryId={(library.id)}
                                 />
                             </CommandGroup>
                         </CommandList>
@@ -58,39 +58,39 @@ const SidebarSearchInput = ({library, notes}: {
             >
                 <DropdownMenu>
                     <DropdownMenuTrigger>
-                        <GoPlus className={`size-6`}/>
+                        <GoPlus className={`size-6`} />
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className={`py-4 px-2`}>
-                        <SidebarSearchInputNewDocItem libraryId={library.id}/>
+                        <SidebarSearchInputNewDocItem libraryId={(library.id).toString()} />
                         <DropdownMenuItem>
-                            <LuTableProperties/>
+                            <LuTableProperties />
                             {/*<FcViewDetails/>*/}
                             表格
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <LuClipboardPenLine/>
+                            <LuClipboardPenLine />
                             画板
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <BsClipboardData/>
+                            <BsClipboardData />
                             数据表
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <LuBookMarked/>
+                            <LuBookMarked />
                             知识库
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator/>
+                        <DropdownMenuSeparator />
                         <DropdownMenuItem>
-                            <FcPuzzle/>
+                            <FcPuzzle />
                             从模板新建
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <RiRobot2Line/>
+                            <RiRobot2Line />
                             Ai帮你写
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <FcImport/>
+                            <FcImport />
                             导入
                         </DropdownMenuItem>
                     </DropdownMenuContent>

@@ -1,5 +1,5 @@
 // src/app/(dashboard)/_components/IEditedNotesTable.tsx
-import {Link, useSearchParams} from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import {
     Table,
     TableBody,
@@ -7,8 +7,8 @@ import {
     TableCell,
     TableRow,
 } from "@/components/ui/table"
-import {GoPencil} from "react-icons/go";
-import {FcFile} from "react-icons/fc";
+import { GoPencil } from "react-icons/go";
+import { FcFile } from "react-icons/fc";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,15 +16,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {HiEllipsisHorizontal} from "react-icons/hi2";
-import {FcRating} from "react-icons/fc";
-import {PiBroom} from "react-icons/pi";
-import {CiShare1} from "react-icons/ci";
-import {Note} from "@prisma/client";
-import {formatDistanceToNow} from "date-fns";
-import {zhCN} from "date-fns/locale/zh-CN";
-import {useNavigate} from "react-router-dom";
-import {deleteNote} from "@/app/(knowledge)/[username]/[libraryId]/actions/delete-note";
+import { HiEllipsisHorizontal } from "react-icons/hi2";
+import { FcRating } from "react-icons/fc";
+import { PiBroom } from "react-icons/pi";
+import { CiShare1 } from "react-icons/ci";
+// import {Note} from "@/lib/types";
+import { Note } from "@/lib/types";
+import { formatDistanceToNow } from "date-fns";
+import { zhCN } from "date-fns/locale/zh-CN";
+import { useNavigate } from "react-router-dom";
+import { deleteNote } from "@/app/(knowledge)/[username]/[libraryId]/actions/delete-note";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -36,7 +37,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import toast from "react-hot-toast";
 import {
     Pagination,
@@ -47,9 +48,9 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import {useState} from "react";
+import { useState } from "react";
 
-const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
+const NotesListEditedNotesTable = ({ notes }: { notes: Note[] }) => {
     const router = useNavigate()
     const [page, setPage] = useState(0);
     const [_s, setSearchParam] = useSearchParams()
@@ -71,7 +72,7 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                             <PaginationItem>
                                 <PaginationPrevious
                                     className={`cursor-pointer`}
-                                    onClick={() => setPage(page - 1)}/>
+                                    onClick={() => setPage(page - 1)} />
                             </PaginationItem>
                             <PaginationItem>
                                 <PaginationLink
@@ -82,7 +83,7 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                                 </PaginationLink>
                             </PaginationItem>
                             <PaginationItem>
-                                <PaginationEllipsis/>
+                                <PaginationEllipsis />
                             </PaginationItem>
                             <PaginationItem>
                                 <PaginationNext
@@ -102,11 +103,11 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                             {/*标题*/}
                             <TableCell className={`w-[34vw] p-6`}>
                                 <div className={`h-6 gap-x-2 flex items-center`}>
-                                    <FcFile className={`size-6`}/>
+                                    <FcFile className={`size-6`} />
                                     <span className={`cursor-pointer`}>{item.name}</span>
                                     <Link to={`/malred/${item.libraryId}/${item.id}`}
-                                          className={`group-hover:block hidden`}>
-                                        <GoPencil className={`size-4`}/>
+                                        className={`group-hover:block hidden`}>
+                                        <GoPencil className={`size-4`} />
                                     </Link>
                                 </div>
                             </TableCell>
@@ -128,17 +129,17 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                                         className={`hover:bg-slate-200 rounded-md group-hover:block hidden`}
                                     >
                                         <HiEllipsisHorizontal
-                                            className={`size-8 p-2`}/>
+                                            className={`size-8 p-2`} />
                                     </DropdownMenuTrigger>
                                     <DropdownMenuTrigger
                                         className={`hover:bg-slate-200 rounded-md group-hover:hidden block`}
                                     >
                                         <div
-                                            className={`size-8 p-2`}/>
+                                            className={`size-8 p-2`} />
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <DropdownMenuItem>
-                                            <FcRating/>
+                                            <FcRating />
                                             收藏
                                         </DropdownMenuItem>
                                         {/*不是item就不会点击后马上被关闭*/}
@@ -150,7 +151,7 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                                                         "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0",
                                                     )}
                                                 >
-                                                    <PiBroom/>
+                                                    <PiBroom />
                                                     移除
                                                 </div>
                                             </AlertDialogTrigger>
@@ -167,19 +168,19 @@ const NotesListEditedNotesTable = ({notes}: { notes: Note[] }) => {
                                                         onClick={async () => {
                                                             await deleteNote(item.id)
                                                             // router.refresh()
-                                                            setSearchParam({random: Math.random().toString()})
+                                                            setSearchParam({ random: Math.random().toString() })
                                                             toast.success(`删除成功`)
                                                         }}
                                                     >确定</AlertDialogAction>
                                                 </AlertDialogFooter>
                                             </AlertDialogContent>
                                         </AlertDialog>
-                                        <DropdownMenuSeparator/>
+                                        <DropdownMenuSeparator />
                                         <DropdownMenuItem
                                             onClick={async () => {
                                                 router(`/malred/${item.libraryId}/${item.id}`)
                                             }}>
-                                            <CiShare1/>
+                                            <CiShare1 />
                                             浏览器打开
                                         </DropdownMenuItem>
                                     </DropdownMenuContent>

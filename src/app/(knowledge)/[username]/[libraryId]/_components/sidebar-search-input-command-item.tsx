@@ -1,13 +1,13 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-search-input-command-item.tsx
 
-import {CommandItem} from "@/components/ui/command";
-import {Note} from "@prisma/client";
-import {Link} from 'react-router-dom';
+import { CommandItem } from "@/components/ui/command";
+import { Note } from "@/lib/types";
+import { Link } from 'react-router-dom';
 
-const SidebarSearchInputCommandItem = ({notes, libraryId, level = 0}: {
+const SidebarSearchInputCommandItem = ({ notes, libraryId, level = 0 }: {
     notes: Note[]
     level?: number
-    libraryId: string
+    libraryId: number
 }) => {
 
     return (

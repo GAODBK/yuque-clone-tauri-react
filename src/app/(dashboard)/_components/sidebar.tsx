@@ -44,7 +44,7 @@ const Sidebar = () => {
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <div className={`flex items-center`}>
-                                    <span className={`cursor-pointer text-font`}>Malog</span>
+                                    <span className={`hidden lg:block cursor-pointer text-font`}>Malog</span>
                                     <GoChevronDown className={`cursor-pointer size-5`}/>
                                 </div>
                             </TooltipTrigger>

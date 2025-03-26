@@ -67,7 +67,7 @@ import {ExcalidrawExtension} from 'tiptap-excalidraw-extension';
 export const API_BASE_PATH = 'http://localhost:3000'
 
 
-const DOC_LOCAL_STORATE_KEY = 'tiptapDocDataUrl';
+// const DOC_LOCAL_STORATE_KEY = 'tiptapDocDataUrl';
 
 const uploadFn = async (file: Blob | object, ext: 'png' | 'jpg' | 'webp' | 'json') => {
     const formData = new FormData();

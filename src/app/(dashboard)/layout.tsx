@@ -34,14 +34,5 @@ export default function Layout({
                 </ResizablePanel>
             </ResizablePanelGroup>
         </div>
-        /*<div>
-                <div className={`hidden md:flex h-full w-64 flex-col fixed inset-y-0 z-50`}>
-                    <Sidebar/>
-                </div>
-                <main className={`ml-64 p-4`}>
-                    {children}
-                </main>
-            </div>
-        */
     )
 };

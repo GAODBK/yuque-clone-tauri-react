@@ -27,7 +27,7 @@ const StartCards = () => {
                             <LuBookPlus className={`m-2 size-5`}/>
                             <div className={`flex flex-col items-start`}>
                                 <span className={`text-sm font-semibold`}>模板中心</span>
-                                <span className={`text-xs text-slate-400/80`}>
+                                <span className={`hidden lg:block text-xs text-slate-400/80`}>
                                     从模板中获取灵感
                                 </span>
                             </div>
@@ -45,7 +45,7 @@ const StartCards = () => {
                     <LuBookPlus className={`m-2 size-5`}/>
                     <div className={`flex flex-col items-start`}>
                         <span className={`text-sm font-semibold`}>AI帮你写</span>
-                        <span className={`text-xs text-slate-400/80`}>
+                        <span className={`hidden lg:block text-xs text-slate-400/80`}>
                         AI 助手帮你一键生成文档
                     </span>
                     </div>

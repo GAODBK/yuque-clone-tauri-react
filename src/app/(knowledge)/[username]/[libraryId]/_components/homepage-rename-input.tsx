@@ -1,6 +1,6 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-rename-input.tsx
 import { useState } from 'react';
-import { Library } from "@prisma/client";
+import { Library } from "@/lib/types";
 import { Input } from "@/components/ui/input";
 import { updateLibrary } from "@/app/(knowledge)/[username]/[libraryId]/actions/update-library";
 import { useNavigate } from "react-router-dom";

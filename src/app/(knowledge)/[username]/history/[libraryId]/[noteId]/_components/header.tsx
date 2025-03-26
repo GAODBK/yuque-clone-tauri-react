@@ -1,6 +1,6 @@
 // src/app/(knowledge)/[username]/history/[libraryId]/[noteId]/_components/header.tsx
 
-// import {NoteHistory} from '@prisma/client';
+// import {NoteHistory} from '@/lib/types';
 import {NoteHistory} from '@/lib/types.ts';
 
 import {FaChevronLeft} from "react-icons/fa";

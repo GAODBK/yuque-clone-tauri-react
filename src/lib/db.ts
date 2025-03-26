@@ -2,7 +2,7 @@
 
 import Database from "@tauri-apps/plugin-sql";
 
-// import {PrismaClient} from "@prisma/client"
+// import {PrismaClient} from "@/lib/types"
 
 // // const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 // declare global {
@@ -19,4 +19,4 @@ declare global {
     var db: Database | undefined
 }
 
-export const db = globalThis.db || await Database.load("sqlite:malnote.db"); 
+export const db = globalThis.db || await Database.load("sqlite:malnote.db");

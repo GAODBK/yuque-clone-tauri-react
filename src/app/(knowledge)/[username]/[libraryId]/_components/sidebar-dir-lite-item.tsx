@@ -1,7 +1,7 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-dir-lite-item.tsx
-import {useState} from 'react';
-// import {Note} from "@prisma/client";
-import {Note} from "@/lib/types";
+import { useState } from 'react';
+// import {Note} from "@/lib/types";
+import { Note } from "@/lib/types";
 import {
     ContextMenu,
     ContextMenuContent,
@@ -9,18 +9,18 @@ import {
     ContextMenuSeparator,
     ContextMenuTrigger
 } from "@/components/ui/context-menu";
-import {cn} from "@/lib/utils";
-import {Link, useLocation, useNavigate, useSearchParams} from 'react-router-dom';
+import { cn } from "@/lib/utils";
+import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import {
     createNote as createNoteWithParent
 } from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/actions/create-note";
-import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from "@/components/ui/accordion";
-import {Input} from "@/components/ui/input";
-import {updateNote} from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/actions/update-note";
-import {deleteNote} from "@/app/(knowledge)/[username]/[libraryId]/actions/delete-note";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { updateNote } from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/actions/update-note";
+import { deleteNote } from "@/app/(knowledge)/[username]/[libraryId]/actions/delete-note";
 import toast from "react-hot-toast";
 
-const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
+const SidebarDirLiteItem = ({ notes, libraryId, level = 0 }: {
     notes: Note[]
     level?: number
     libraryId: number
@@ -37,12 +37,12 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
         if (!editingId) return
         if (e.key === 'Enter') {
             await updateNote({
-                id: editingId,
+                id: parseInt(editingId),
                 name: name!
             })
             setName(null)
             setEditingId(null)
-            setS({random: Math.random().toString()})
+            setS({ random: Math.random().toString() })
             toast.success(`重命名成功`)
         }
     }
@@ -99,7 +99,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                                     >
                                                         新建文档
                                                     </ContextMenuItem>
-                                                    <ContextMenuSeparator/>
+                                                    <ContextMenuSeparator />
                                                     <ContextMenuItem
                                                         onClick={async () => {
                                                             await deleteNote(item.id)
@@ -125,10 +125,10 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                 </Accordion>)}
                             {editingId && editingId === item.id.toString() && (
                                 <Input key={item.id}
-                                       onKeyDown={onKeyDown}
-                                       onBlur={() => setEditingId(null)}
-                                       value={name || item.name}
-                                       onChange={(e) => setName(e.target.value)}
+                                    onKeyDown={onKeyDown}
+                                    onBlur={() => setEditingId(null)}
+                                    value={name || item.name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             )}
                         </>
@@ -169,7 +169,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                         >
                                             新建文档
                                         </ContextMenuItem>
-                                        <ContextMenuSeparator/>
+                                        <ContextMenuSeparator />
                                         <ContextMenuItem
                                             onClick={async () => {
                                                 await deleteNote(item.id)
@@ -185,10 +185,10 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                             )}
                             {editingId && editingId === item.id.toString() && (
                                 <Input key={item.id}
-                                       onKeyDown={onKeyDown}
-                                       onBlur={() => setEditingId(null)}
-                                       value={name || item.name}
-                                       onChange={(e) => setName(e.target.value)}
+                                    onKeyDown={onKeyDown}
+                                    onBlur={() => setEditingId(null)}
+                                    value={name || item.name}
+                                    onChange={(e) => setName(e.target.value)}
                                 />
                             )}
                         </>

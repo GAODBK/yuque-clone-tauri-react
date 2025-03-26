@@ -1,6 +1,6 @@
-import {defineConfig} from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import {resolve} from 'path';
+import { resolve } from 'path';
 
 /**
  * @ts-expect-error process is a nodejs global
@@ -15,7 +15,14 @@ export default defineConfig(async () => ({
             '@': resolve(__dirname, 'src'),
         },
     },
-
+    build: {
+        target: "es2022"
+    },
+    esbuild: {
+        supported: {
+            'top-level-await': true
+        },
+    },
     // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
     //
     // 1. prevent vite from obscuring rust errors

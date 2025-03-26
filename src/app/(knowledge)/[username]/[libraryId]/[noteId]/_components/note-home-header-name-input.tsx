@@ -1,13 +1,13 @@
 // src/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/note-home-header-name-input.tsx
 
-import {Input} from '@/components/ui/input';
-import {useState} from 'react';
-import {updateNote} from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/actions/update-note";
-import {useSearchParams} from "react-router-dom";
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
+import { updateNote } from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/actions/update-note";
+import { useSearchParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 
-const NoteHomeHeaderNameInput = ({id, name}: {
+const NoteHomeHeaderNameInput = ({ id, name }: {
     id: string
     name: string
 }) => {
@@ -17,11 +17,11 @@ const NoteHomeHeaderNameInput = ({id, name}: {
     let [_searchParams, setSearchParam] = useSearchParams()
 
     const onBlur = async () => {
-        await updateNote({id, name: value})
+        await updateNote({ id: parseInt(id), name: value })
         setEditing(false)
         // router.refresh()
         // 通过更新search来让页面更新
-        setSearchParam({random: Math.random().toString()})
+        setSearchParam({ random: Math.random().toString() })
         toast.success('重命名文档成功')
     }
 

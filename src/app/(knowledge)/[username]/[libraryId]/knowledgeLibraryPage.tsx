@@ -2,7 +2,8 @@
 
 import { BsJournalBookmark } from "react-icons/bs";
 import { HiEllipsisHorizontal } from "react-icons/hi2";
-import { Library } from "@prisma/client";
+// import { Library } from "@/lib/types";
+import { Library } from "@/lib/types";
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import {
     DropdownMenu,
@@ -88,8 +89,8 @@ import HomepageDir from "@/app/(knowledge)/[username]/[libraryId]/_components/ho
 import { renderMathInText, renderRichTextWithHighlight } from "@/lib/utils.ts";
 import { useEffect, useState } from "react";
 import Layout from "@/app/(knowledge)/[username]/[libraryId]/layout.tsx";
-import { API_BASE_PATH } from "@/lib/constants.ts";
-import { getLibraries, getLibraryById } from "@/lib/utils/db";
+// import { API_BASE_PATH } from "@/lib/constants.ts";
+import { getLibraryById } from "@/lib/utils/db";
 //import {fetch} from "@tauri-apps/plugin-http";
 
 const KnowledgeLibraryPage = () => {
@@ -167,6 +168,8 @@ const KnowledgeLibraryPage = () => {
                                 </div>
                             </div>
                             {/* {library.showDir  && <HomepageDir */}
+
+                            {/* @ts-ignore */}
                             {library.showDir !== 'false' && <HomepageDir
                                 // @ts-ignore
                                 library={library} />}

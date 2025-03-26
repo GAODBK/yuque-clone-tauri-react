@@ -8,6 +8,9 @@ import { API_BASE_PATH } from "@/lib/constants.ts";
 // import { db } from "./db";
 // import { Note } from "./types";
 //import {fetch} from "@tauri-apps/plugin-http";
+// import { exists, BaseDirectory } from '@tauri-apps/plugin-fs';
+// when using `"withGlobalTauri": true`, you may use
+// const { exists, BaseDirectory } = window.__TAURI__.fs;
 
 
 export function cn(...inputs: ClassValue[]) {
@@ -202,82 +205,6 @@ export const uploadVideo = async (formData, onChange) => {
         console.error('Upload failed:', data.error);
     }
 }
-
-// @ts-ignore
-export const uploadImage = async (formData, onChange) => {
-    const response = await fetch(`${API_BASE_PATH}/api/upload`, {
-        method: 'POST',
-        body: formData,
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-        // 是否加上前缀?
-        onChange(API_BASE_PATH + data.url)
-    } else {
-        console.error('Upload failed:', data.error);
-    }
-}
-
-export function generateOutlineLevel(richText: string) {
-    // const dom = new JSDOM(richText);
-    // const document = dom.window.document;
-    // const parser = new DOMParser();
-    // const document = parser.parseFromString(richText, 'text/html');
-
-    // 创建一个隐藏的div元素
-    // var div = document.createElement('div');
-    // var div = window.document.createElement('div');
-    let div = document.createElement('div');
-    div.style.display = 'none';
-    // 将富文本内容插入到div中
-    div.innerHTML = richText;
-
-    const titleTag = ["H1", "H2", "H3", "H4"];
-    let titles: {
-        id: string,
-        title: string,
-        level: number,
-        nodeName: string
-    }[] = [];
-    div.childNodes.forEach((e, index) => {
-        if (titleTag.includes(e.nodeName)) {
-            const id = "header-" + index;
-            // @ts-ignore
-            e.setAttribute("id", id);
-            titles.push({
-                id: id,
-                // @ts-ignore
-                title: e.innerHTML,
-                level: Number(e.nodeName.substring(1, 2)),
-                nodeName: e.nodeName
-            });
-        }
-    });
-    // console.log(div.innerHTML)
-    const catalog = titles;
-    // console.log(catalog);
-
-    // 原生JavaScript遍历
-    // for (index in catalog) {
-    const catalogStr = catalog.map((_, index) => {
-        // document.getElementById('cataLog').innerHTML
-        return "<li style='padding-left: "
-            + (catalog[index].level * 22 - 22)
-            + "px;'>"
-            + "<a href='#"
-            + catalog[index].id
-            + "'>"
-            + catalog[index].title + "</a>"
-            + "</li>"
-    }).join('')
-    return {
-        full: `${catalogStr}<br/>${div.innerHTML}`,
-        outline: catalogStr,
-        rich: div.innerHTML,
-    }
-}
-
 
 export function renderRichTextWithHighlight(richText: string) {
     const parser = new DOMParser();

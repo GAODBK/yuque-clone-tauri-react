@@ -37,7 +37,7 @@ import { FcImport } from "react-icons/fc";
 import { RiRobot2Line } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react";
-// import { Library } from "@prisma/client";
+// import { Library } from "@/lib/types";
 import { Library } from "@/lib/types";
 // import { API_BASE_PATH } from "@/lib/constants.ts";
 import toast from "react-hot-toast";

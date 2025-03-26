@@ -78,9 +78,9 @@ import '@mantine/tiptap/styles.css';
 import { useParams, useSearchParams } from "react-router-dom";
 import { generateOutline, renderMathInText, renderRichTextWithHighlight } from "@/lib/utils.ts";
 import { useEffect, useState } from "react";
-import { Note } from "@prisma/client";
+import { Note } from "@/lib/types";
 import Layout from "@/app/(knowledge)/[username]/[libraryId]/layout.tsx";
-import { API_BASE_PATH } from "@/lib/constants.ts";
+// import { API_BASE_PATH } from "@/lib/constants.ts";
 // import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import '@mantine/core/styles.css';
 import './note.css'
@@ -133,7 +133,7 @@ const KnowledgeNotePage = () => {
             <div className={`size-full flex`}>
                 <div className={`size-full bg-white flex flex-col`}>
                     <NoteHomeHeader
-                        libraryId={params.libraryId!}
+                        libraryId={parseInt(params.libraryId!)}
                         id={note?.id!}
                         text={note?.text! || ''}
                         name={note?.name!} />
@@ -180,7 +180,7 @@ const KnowledgeNotePage = () => {
                     searchParams.get('type') === 'ai-read') && <NoteAiChat
                         richText={note?.text || ''}
                         libraryId={params.libraryId!}
-                        id={note?.id!}
+                        id={note?.id!.toString()}
                     />}
             </div>
         </Layout>

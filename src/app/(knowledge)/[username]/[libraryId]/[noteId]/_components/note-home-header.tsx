@@ -3,26 +3,26 @@
 import NoteHomeHeaderNameInput
     from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/note-home-header-name-input";
 
-import {Link} from 'react-router-dom';
-import {FaUserPlus} from "react-icons/fa6";
-import {BsChatText} from "react-icons/bs";
-import {AiOutlineInsertRowRight} from "react-icons/ai";
+import { Link } from 'react-router-dom';
+import { FaUserPlus } from "react-icons/fa6";
+import { BsChatText } from "react-icons/bs";
+import { AiOutlineInsertRowRight } from "react-icons/ai";
 import NoteHomeHeaderEditButton
     from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/note-home-header-edit-button";
 import NoteHomeHeaderAIButton
     from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/note-home-header-ai-button";
-import {Tabs, TabsContent, TabsList} from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs"
 import {
     Sheet,
     SheetContent,
     SheetTrigger,
 } from "@/components/ui/sheet"
 
-import {Separator} from "@/components/ui/separator";
-import {BsSliders2} from "react-icons/bs";
-import {FaClockRotateLeft} from "react-icons/fa6";
-import {VscNotebookTemplate} from "react-icons/vsc";
-import {LiaFileExportSolid} from "react-icons/lia";
+import { Separator } from "@/components/ui/separator";
+import { BsSliders2 } from "react-icons/bs";
+import { FaClockRotateLeft } from "react-icons/fa6";
+import { VscNotebookTemplate } from "react-icons/vsc";
+import { LiaFileExportSolid } from "react-icons/lia";
 import {
     Dialog,
     DialogContent,
@@ -34,33 +34,33 @@ import {
 import ExportPdfItem from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/export-pdf-item";
 import ExportMdItem from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/export-md-item";
 
-const NoteHomeHeader = ({id, text, libraryId, name}: {
-    id: string
+const NoteHomeHeader = ({ id, text, libraryId, name }: {
+    id: number
     text: string
-    libraryId: string
+    libraryId: number
     name: string
 }) => {
 
     return (
         <div className={`h-14 border-b p-2 flex justify-between items-center sticky top-0 z-50 bg-white`}>
-            <NoteHomeHeaderNameInput id={id} name={name}/>
+            <NoteHomeHeaderNameInput id={id.toString()} name={name} />
             <div className={`flex items-center gap-x-3`}>
-                <NoteHomeHeaderAIButton id={id} libraryId={libraryId}/>
+                <NoteHomeHeaderAIButton id={id.toString()} libraryId={libraryId.toString()} />
                 {/*协作*/}
                 <Link to={`/malred/${libraryId}/${id}/colab`}>
-                <FaUserPlus className={`size-6`}/>
+                    <FaUserPlus className={`size-6`} />
                 </Link>
-                <span/>
+                <span />
                 <span className={`py-1.5 h-8 px-4 font-semibold rounded-md text-sm border`}>
                     分享
                 </span>
 
-                <NoteHomeHeaderEditButton id={id} libraryId={libraryId}/>
+                <NoteHomeHeaderEditButton id={id.toString()} libraryId={libraryId.toString()} />
                 <Tabs defaultValue="" className={``}>
                     <TabsList>
                         <Sheet>
                             <SheetTrigger>
-                                <BsChatText className={`size-5`}/>
+                                <BsChatText className={`size-5`} />
                             </SheetTrigger>
                             <SheetContent>
                                 <div>
@@ -68,24 +68,24 @@ const NoteHomeHeader = ({id, text, libraryId, name}: {
                                 </div>
                             </SheetContent>
                         </Sheet>
-                        <Separator orientation={'vertical'} className={`mx-1`}/>
+                        <Separator orientation={'vertical'} className={`mx-1`} />
                         <Sheet>
                             <SheetTrigger>
-                                <AiOutlineInsertRowRight className={`size-5`}/>
+                                <AiOutlineInsertRowRight className={`size-5`} />
                             </SheetTrigger>
                             <SheetContent>
                                 <div className={`p-2 rounded-md bg-gray-300/30`}>
                                     <div className={`p-2 rounded-md cursor-pointer
                                     flex items-center hover:bg-slate-300/30 gap-x-2
                                     `}>
-                                        <BsSliders2 className={`size-5`}/>
+                                        <BsSliders2 className={`size-5`} />
                                         <span>文档设置</span>
                                     </div>
-                                    <Separator className={`my-2`}/>
+                                    <Separator className={`my-2`} />
                                     <div className={`p-2 rounded-md cursor-pointer
                                     flex items-center hover:bg-slate-300/30 gap-x-2
                                     `}>
-                                        <VscNotebookTemplate className={`size-5`}/>
+                                        <VscNotebookTemplate className={`size-5`} />
                                         <span>另存为模板</span>
                                     </div>
                                     <Link
@@ -94,14 +94,14 @@ const NoteHomeHeader = ({id, text, libraryId, name}: {
                                         <div className={`p-2 rounded-md cursor-pointer
                                             flex items-center hover:bg-slate-300/30 gap-x-2
                                             `}>
-                                            <FaClockRotateLeft className={`size-5`}/>
+                                            <FaClockRotateLeft className={`size-5`} />
                                             <span>历史版本</span>
                                         </div>
                                     </Link>
                                     <div className={`p-2 rounded-md cursor-pointer
                                     flex items-center hover:bg-slate-300/30 gap-x-2
                                     `}>
-                                        <LiaFileExportSolid className={`size-5`}/>
+                                        <LiaFileExportSolid className={`size-5`} />
                                         <Dialog>
                                             <DialogTrigger>
                                                 <span>导出</span>
@@ -114,7 +114,7 @@ const NoteHomeHeader = ({id, text, libraryId, name}: {
                                                     {/*<ExportWordItem*/}
                                                     {/*    content={text} title={name}*/}
                                                     {/*/>*/}
-                                                    <ExportPdfItem title={name}/>
+                                                    <ExportPdfItem title={name} />
                                                     <ExportMdItem
                                                         content={text} title={name}
                                                     />

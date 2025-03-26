@@ -1,6 +1,17 @@
+use tauri::utils::platform::current_exe;
 use tauri_plugin_sql::{Migration, MigrationKind};
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+#[tauri::command]
+fn current_exe_pkg() -> String {
+    let pkg_name = env!("CARGO_PKG_NAME");
+    let pkg_name = pkg_name.to_string() + ".exe";
+
+    // 获取当前目录的路径
+    let current_exe = current_exe().unwrap();
+    current_exe.display().to_string().replace(&pkg_name, "")
+}
+
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
@@ -136,7 +147,8 @@ pub fn run() {
     let mut ctx = tauri::generate_context!();
 
     tauri::Builder::default()
-        .plugin(tauri_plugin_sql::Builder::new().build())
+        .plugin(tauri_plugin_fs::init())
+        // .plugin(tauri_plugin_sql::Builder::new().build())
         .plugin(
             tauri_plugin_sql::Builder::default()
                 // 创建数据库
@@ -146,8 +158,9 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         // Init plugin and auto restore window theme !!!
         .plugin(tauri_plugin_theme::init(ctx.config_mut()))
-        .plugin(tauri_plugin_http::init()) // 本插件
-        .invoke_handler(tauri::generate_handler![greet])
+        // .plugin(tauri_plugin_http::init())
+        // .plugin(tauri_plugin_upload::init()) // 上传文件
+        .invoke_handler(tauri::generate_handler![current_exe_pkg, greet])
         .run(ctx)
         .expect("error while running tauri application");
 }

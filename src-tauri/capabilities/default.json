@@ -8,13 +8,14 @@
   "permissions": [
     "http:allow-fetch",
     "core:default",
-    "opener:default",
+    "opener:default", 
     "theme:default",
     "sql:default",
     "sql:allow-load",
     "sql:allow-execute",
     "sql:allow-select",
     "sql:allow-close",
+    "upload:default",
     {
       "identifier": "http:default",
       "allow": [
@@ -26,7 +27,6 @@
         }
       ]
     },
-    "sql:default",
-    "sql:default"
+    "fs:default"
   ]
 }

@@ -13,7 +13,7 @@ importers:
         version: 0.37.4(nodemailer@6.9.16)
       '@auth/prisma-adapter':
         specifier: ^2.7.4
-        version: 2.7.4(@prisma/client@5.22.0(prisma@5.22.0))(nodemailer@6.9.16)
+        version: 2.7.4(@/lib/types@5.22.0(prisma@5.22.0))(nodemailer@6.9.16)
       '@excalidraw/excalidraw':
         specifier: ^0.17.6
         version: 0.17.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -152,7 +152,7 @@ importers:
       '@pdf-lib/fontkit':
         specifier: ^1.1.1
         version: 1.1.1
-      '@prisma/client':
+      '@/lib/types':
         specifier: ^5.7.1
         version: 5.22.0(prisma@5.22.0)
       '@radix-ui/react-accordion':
@@ -251,6 +251,9 @@ importers:
       '@tauri-apps/api':
         specifier: ^2
         version: 2.2.0
+      '@tauri-apps/plugin-fs':
+        specifier: ~2
+        version: 2.2.0
       '@tauri-apps/plugin-http':
         specifier: ^2.2.0
         version: 2.2.0
@@ -260,6 +263,9 @@ importers:
       '@tauri-apps/plugin-sql':
         specifier: ~2.2.0
         version: 2.2.0
+      '@tauri-apps/plugin-upload':
+        specifier: github:tauri-apps/tauri-plugin-upload#v2
+        version: https://codeload.github.com/tauri-apps/tauri-plugin-upload/tar.gz/008db8540e03ed55db4a22ba649701b6dc750620
       '@tiptap/core':
         specifier: ^2.11.0
         version: 2.11.0(@tiptap/pm@2.11.0)
@@ -797,7 +803,7 @@ packages:
   '@auth/prisma-adapter@2.7.4':
     resolution: {integrity: sha512-3T/X94R9J1sxOLQtsD3ijIZ0JGHPXlZQxRr/8NpnZBJ3KGxun/mNsZ1MwMRhTxy0mmn9JWXk7u9+xCcVn0pu3A==}
     peerDependencies:
-      '@prisma/client': '>=2.26.0 || >=3 || >=4 || >=5'
+      '@/lib/types': '>=2.26.0 || >=3 || >=4 || >=5'
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -2136,7 +2142,7 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@prisma/client@5.22.0':
+  '@/lib/types@5.22.0':
     resolution: {integrity: sha512-M0SVXfyHnQREBKxCgyo7sffrKttwE6R8PMq330MIUF0pTwjUhLbW84pFDlf06B27XyCR++VtjugEnIHdr07SVA==}
     engines: {node: '>=16.13'}
     peerDependencies:
@@ -3149,6 +3155,9 @@ packages:
     engines: {node: '>= 10'}
     hasBin: true
 
+  '@tauri-apps/plugin-fs@2.2.0':
+    resolution: {integrity: sha512-+08mApuONKI8/sCNEZ6AR8vf5vI9DXD4YfrQ9NQmhRxYKMLVhRW164vdW5BSLmMpuevftpQ2FVoL9EFkfG9Z+g==}
+
   '@tauri-apps/plugin-http@2.2.0':
     resolution: {integrity: sha512-ZY6sIHhgu8hcu6BkkegoiOEbvOsQFSVcK8J7l+g9RNHrkhl5uzpNIytR4R/H50fj7gyG80DJvrXDx/LBo7Easw==}
 
@@ -3157,6 +3166,10 @@ packages:
 
   '@tauri-apps/plugin-sql@2.2.0':
     resolution: {integrity: sha512-yGdybpaMENe/p6lTXslvDHYNNvD9qB7palaBBF5fJHdYSkwd3vrLiYU9dFfLwUAwnsBylND55EiivWsjhazejA==}
+
+  '@tauri-apps/plugin-upload@https://codeload.github.com/tauri-apps/tauri-plugin-upload/tar.gz/008db8540e03ed55db4a22ba649701b6dc750620':
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-upload/tar.gz/008db8540e03ed55db4a22ba649701b6dc750620}
+    version: 2.2.1
 
   '@tiptap/core@2.11.0':
     resolution: {integrity: sha512-0S3AWx6E2QqwdQqb6z0/q6zq2u9lA9oL3BLyAaITGSC9zt8OwjloS2k1zN6wLa9hp2rO0c0vDnWsTPeFaEaMdw==}
@@ -8569,10 +8582,10 @@ snapshots:
     optionalDependencies:
       nodemailer: 6.9.16
 
-  '@auth/prisma-adapter@2.7.4(@prisma/client@5.22.0(prisma@5.22.0))(nodemailer@6.9.16)':
+  '@auth/prisma-adapter@2.7.4(@/lib/types@5.22.0(prisma@5.22.0))(nodemailer@6.9.16)':
     dependencies:
       '@auth/core': 0.37.4(nodemailer@6.9.16)
-      '@prisma/client': 5.22.0(prisma@5.22.0)
+      '@/lib/types': 5.22.0(prisma@5.22.0)
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
       - '@simplewebauthn/server'
@@ -9627,7 +9640,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@prisma/client@5.22.0(prisma@5.22.0)':
+  '@/lib/types@5.22.0(prisma@5.22.0)':
     optionalDependencies:
       prisma: 5.22.0
 
@@ -10611,6 +10624,10 @@ snapshots:
       '@tauri-apps/cli-win32-ia32-msvc': 2.2.2
       '@tauri-apps/cli-win32-x64-msvc': 2.2.2
 
+  '@tauri-apps/plugin-fs@2.2.0':
+    dependencies:
+      '@tauri-apps/api': 2.2.0
+
   '@tauri-apps/plugin-http@2.2.0':
     dependencies:
       '@tauri-apps/api': 2.2.0
@@ -10620,6 +10637,10 @@ snapshots:
       '@tauri-apps/api': 2.2.0
 
   '@tauri-apps/plugin-sql@2.2.0':
+    dependencies:
+      '@tauri-apps/api': 2.2.0
+
+  '@tauri-apps/plugin-upload@https://codeload.github.com/tauri-apps/tauri-plugin-upload/tar.gz/008db8540e03ed55db4a22ba649701b6dc750620':
     dependencies:
       '@tauri-apps/api': 2.2.0
 

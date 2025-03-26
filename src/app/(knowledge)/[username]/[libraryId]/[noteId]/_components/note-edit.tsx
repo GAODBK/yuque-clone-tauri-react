@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from 'react';
 
-import {Note} from "@prisma/client";
+import {Note} from "@/lib/types";
 import {useSlugStore} from "@/hooks/use-slug-store";
 import {updateNote} from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/actions/update-note";
 import {useNavigate} from "react-router-dom";

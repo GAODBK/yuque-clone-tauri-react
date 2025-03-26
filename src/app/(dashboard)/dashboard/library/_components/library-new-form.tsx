@@ -49,7 +49,7 @@ const LibraryNewForm = () => {
             })
             toast.success(`创建成功`)
             // 个人用不做user等相关功能
-            router(`/malred/${library.id}`)
+            router(`/malred/${library?.id}`)
             // router.refresh()
 
         } catch (err) {

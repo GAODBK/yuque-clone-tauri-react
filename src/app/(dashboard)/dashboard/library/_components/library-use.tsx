@@ -9,7 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import { Ellipsis, GripVertical } from "lucide-react";
 import { BsJournalBookmark } from "react-icons/bs";
-// import {Library} from "@prisma/client";
+// import {Library} from "@/lib/types";
 import { Library } from "@/lib/types";
 
 const LibraryUse = ({ libraries }: { libraries: Library[] }) => {

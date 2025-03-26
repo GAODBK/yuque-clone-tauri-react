@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BsJournalBookmark } from "react-icons/bs";
 import HomepageUpdateButtons from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-update-buttons";
 import HomepageEditText from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-edit-text";
-// import { Library } from "@prisma/client";
+// import { Library } from "@/lib/types";
 import { Library } from "@/lib/types";
 
 const EditHomepage = ({ library }: { library: Library }) => {

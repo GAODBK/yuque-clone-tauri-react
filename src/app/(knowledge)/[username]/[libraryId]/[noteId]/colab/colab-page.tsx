@@ -3,7 +3,7 @@ import '../note.css'
 import Edit from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/colab/_components/edit.tsx";
 import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {Note} from "@prisma/client";
+import {Note} from "@/lib/types";
 import {API_BASE_PATH} from "@/lib/constants.ts";
 //import {fetch} from "@tauri-apps/plugin-http";
 

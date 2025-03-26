@@ -2,10 +2,10 @@
 // import {API_BASE_PATH} from "@/lib/constants.ts";
 //import {fetch} from "@tauri-apps/plugin-http";
 import { db } from "@/lib/db"
-import { getNoteById } from "@/lib/utils/db"
+// import { getNoteById } from "@/lib/utils/db"
 
 export const updateNote = async (value: {
-    id: string
+    id: number
     name?: string
     text?: string
 }) => {
@@ -25,7 +25,7 @@ export const updateNote = async (value: {
     // return json.note
 
     let sql = ``
-    let params = [value.id]
+    let params: any[] = [value.id]
 
     if (value.text && !value.name) {
         sql = `UPDATE note

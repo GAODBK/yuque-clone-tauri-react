@@ -4,7 +4,7 @@ import Header from "@/app/(knowledge)/[username]/history/[libraryId]/[noteId]/_c
 import {format} from 'date-fns';
 import {Link, useParams, useSearchParams} from 'react-router-dom';
 import {cn, renderMathInText, renderRichTextWithHighlight} from "@/lib/utils";
-// import {NoteHistory} from "@prisma/client";
+// import {NoteHistory} from "@/lib/types";
 import {NoteHistory} from "@/lib/types";
 import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import {useEffect, useState} from "react";

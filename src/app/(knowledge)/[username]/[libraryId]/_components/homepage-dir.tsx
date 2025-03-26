@@ -1,6 +1,6 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/homepage-dir.tsx
 
-// import {Library, Note} from "@prisma/client";
+// import {Library, Note} from "@/lib/types";
 import { Library, Note } from "@/lib/types";
 import HomepageDirItem from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-dir-item";
 import { useEffect, useState } from "react";
