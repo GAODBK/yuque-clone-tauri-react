@@ -1,0 +1,16 @@
+[[permission]]
+identifier = "my-identifier"
+description = "This describes the impact and more."
+commands.allow = [
+    "http:allow-fetch",
+    "http:default",
+    "core:default",
+    "opener:default",
+]
+
+
+[[scope.allow]]
+my-scope = "http://**"
+
+[[scope.deny]]
+my-scope = "$HOME/secret"

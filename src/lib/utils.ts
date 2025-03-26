@@ -1,11 +1,13 @@
-import {clsx, type ClassValue} from "clsx"
-import {twMerge} from "tailwind-merge"
-import {useCallback} from "react";
-import {Editor} from "@tiptap/react";
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+import { useCallback } from "react";
+import { Editor } from "@tiptap/react";
 import hljs from "highlight.js";
 import katex from "katex";
-import {Note} from "@prisma/client";
-import {API_BASE_PATH} from "@/lib/constants.ts";
+import { API_BASE_PATH } from "@/lib/constants.ts";
+// import { db } from "./db";
+// import { Note } from "./types";
+//import {fetch} from "@tauri-apps/plugin-http";
 
 
 export function cn(...inputs: ClassValue[]) {
@@ -24,7 +26,7 @@ export function generateImageAPI(prompt: string) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({prompt}),
+        body: JSON.stringify({ prompt }),
     })
 }
 
@@ -42,7 +44,7 @@ export async function pasteImage(_event, editor: Editor, slug: string) {
             if (type.indexOf('image') > -1) {
                 const blob = await clipboardItem.getType(type)
                 // 将Blob转换成File
-                const file = new File([blob], `image-${Date.now()}`, {type: type})
+                const file = new File([blob], `image-${Date.now()}`, { type: type })
                 // fileList.push(file)
                 // 将Blob转换成url，方便前端展示预览图
                 // const url = URL.createObjectURL(blob)
@@ -286,7 +288,7 @@ export function renderRichTextWithHighlight(richText: string) {
     codeBlocks.forEach(block => {
         const language = block.className.split('-')[1] || 'plaintext';
         const code = block.textContent;
-        const highlighted = hljs.highlight(code!, {language}).value;
+        const highlighted = hljs.highlight(code!, { language }).value;
         block.innerHTML = highlighted;
     });
 
@@ -318,29 +320,60 @@ export function renderMathInText(text: string) {
     return doc.body.innerHTML;
 }
 
-
-export async function getNotes(id: string): Promise<null | Note> {
-    const res = await fetch(`${API_BASE_PATH}/api/db/note/${id}`)
-    const json = await res.json()
-    let node = json.note
-
-    if (!node) {
-        // @ts-ignore
-        return {};
-    }
-
-    if (node.childrenNote.length > 0) {
-        let children = []
-        // 遍历childrenNote
-        for (let child of node.childrenNote) {
-            // 获取childrenNote的child
-            const childNodes = await getNotes(child.id);
+export async function generateOutline(richText: string) {
+    // const dom = new JSDOM(richText);
+    // const document = dom.window.document;
+    //     // const parser = new DOMParser();
+    //     // const document = parser.parseFromString(richText, 'text/html');
+    //
+    //     // 创建一个隐藏的div元素
+    //     // var div = document.createElement('div');
+    //     // var div = window.document.createElement('div');
+    let div = document.createElement('div');
+    div.style.display = 'none';
+    //     // 将富文本内容插入到div中
+    div.innerHTML = richText;
+    //
+    const titleTag = ["H1", "H2", "H3", "H4"];
+    // @ts-ignore
+    let titles = [];
+    // @ts-ignore
+    div.childNodes.forEach((e, index) => {
+        if (titleTag.includes(e.nodeName)) {
+            const id = "header-" + index;
             // @ts-ignore
-            children.push(childNodes)
+            e.setAttribute("id", id);
+            titles.push({
+                id: id,
+                // @ts-ignore
+                title: e.innerHTML,
+                level: Number(e.nodeName.substring(1, 2)),
+                nodeName: e.nodeName
+            });
         }
-        // @ts-ignore
-        node.childrenNote = children
-    }
+    });
+    //     // console.log(div.innerHTML)
+    // @ts-ignore
+    const catalog = titles;
+    //     // console.log(catalog);
+    //
+    //     // 原生JavaScript遍历
+    // for (index in catalog) {
+    const catalogStr = catalog.map((_, index) => {
+        // document.getElementById('cataLog').innerHTML
+        return "<li style='padding-left: "
+            + (catalog[index].level * 22 - 22)
+            + "px;'>"
+            + "<a href='#"
+            + catalog[index].id
+            + "'>"
+            + catalog[index].title + "</a>"
+            + "</li>"
+    }).join('')
 
-    return node;
+    return ({
+        full: `${catalogStr}<br/>${div.innerHTML}`,
+        outline: catalogStr,
+        rich: div.innerHTML,
+    })
 }

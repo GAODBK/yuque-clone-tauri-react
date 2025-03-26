@@ -6,12 +6,13 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import {Link} from 'react-router-dom';
-import {Ellipsis, GripVertical} from "lucide-react";
-import {BsJournalBookmark} from "react-icons/bs";
-import {Library} from "@prisma/client";
+import { Link } from 'react-router-dom';
+import { Ellipsis, GripVertical } from "lucide-react";
+import { BsJournalBookmark } from "react-icons/bs";
+// import {Library} from "@prisma/client";
+import { Library } from "@/lib/types";
 
-const LibraryUse = ({libraries}: { libraries: Library[] }) => {
+const LibraryUse = ({ libraries }: { libraries: Library[] }) => {
     // console.log(libraries)
 
     return (
@@ -25,14 +26,14 @@ const LibraryUse = ({libraries}: { libraries: Library[] }) => {
                         <div className={`w-full flex items-center flex-wrap gap-x-2 gap-y-4`}>
                             {libraries && libraries.map(i => (
                                 <Link key={i.id}
-                                      to={`/malred/${i.id}`}
-                                      className={`w-[32%] h-16 cursor-pointer group items-center 
+                                    to={`/malred/${i.id}`}
+                                    className={`w-[32%] h-16 cursor-pointer group items-center 
                                       flex flex-row justify-between bg-white hover:bg-slate-300/40
                                        p-2 rounded-md`}>
-                                    <GripVertical className={`mr-1 size-4 group-hover:inline hidden`}/>
-                                    <div className={`mr-1 size-4 block group-hover:hidden`}/>
+                                    <GripVertical className={`mr-1 size-4 group-hover:inline hidden`} />
+                                    <div className={`mr-1 size-4 block group-hover:hidden`} />
                                     <div className={`flex-1 flex flex-row items-center gap-x-2`}>
-                                        <BsJournalBookmark className={`size-6`}/>
+                                        <BsJournalBookmark className={`size-6`} />
                                         <div className={`flex flex-col justify-center`}>
                                             <span className={``}>
                                                 {i.name}
@@ -42,7 +43,7 @@ const LibraryUse = ({libraries}: { libraries: Library[] }) => {
                                             </span>
                                         </div>
                                     </div>
-                                    <Ellipsis className={`group-hover:block hidden`}/>
+                                    <Ellipsis className={`group-hover:block hidden`} />
                                 </Link>
                             ))}
                         </div>

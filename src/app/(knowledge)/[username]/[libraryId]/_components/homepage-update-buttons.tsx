@@ -7,26 +7,36 @@ import {
     DropdownMenuLabel,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import {BsSliders} from "react-icons/bs";
-import {Switch} from "@/components/ui/switch"
-import {updateLibrary} from "@/app/(knowledge)/[username]/[libraryId]/actions/update-library";
-import {useNavigate} from "react-router-dom";
+import { BsSliders } from "react-icons/bs";
+import { Switch } from "@/components/ui/switch"
+import { updateLibrary } from "@/app/(knowledge)/[username]/[libraryId]/actions/update-library";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const HomepageUpdateButtons = ({id, showDir, setShowDir, text}: {
-    id: string
+// const HomepageUpdateButtons = ({ id, showDir, setShowDir, text }: {
+//     id: string
+//     text: string
+//     showDir: boolean;
+//     setShowDir: Function
+// }) => {
+
+const HomepageUpdateButtons = ({ id, text, showDir, description, name, setShowDir }: {
+    id: number
+    name: string
     text: string
-    showDir: boolean;
+    showDir: boolean
+    description: string
     setShowDir: Function
 }) => {
     const router = useNavigate()
+    // const { id, text, showDir, description, name } = library
 
     return (
         <>
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <div className={`p-2 border flex items-center rounded-md`}>
-                        <BsSliders className={`size-5`}/>
+                        <BsSliders className={`size-5`} />
                     </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -48,16 +58,19 @@ const HomepageUpdateButtons = ({id, showDir, setShowDir, text}: {
                             }}
                         />
                     </div>
-                    <DropdownMenuItem>
+                    {/* <DropdownMenuItem>
                         <span>自定义模块</span>
-                        <Switch/>
-                    </DropdownMenuItem>
+                        <Switch />
+                    </DropdownMenuItem> */}
                 </DropdownMenuContent>
             </DropdownMenu>
             <div className={`cursor-pointer p-2 border flex items-center rounded-md`}>
                 <span
                     onClick={async () => {
-                        await updateLibrary({id, text, showDir})
+                        // await updateLibrary({id, text, showDir}) 
+                        await updateLibrary({
+                            id, text, showDir, description, name
+                        })
                         router(`/malred/${id}?random=${Math.random()}`)
                         // router.refresh()
 

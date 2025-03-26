@@ -5,7 +5,8 @@ import {HiEllipsisHorizontal} from "react-icons/hi2";
 import {Separator} from "@/components/ui/separator";
 import SidebarSearchInput from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-search-input";
 import SidebarDirList from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-dir-list";
-import {Note, Library} from '@prisma/client';
+// import { Note, Library } from '@prisma/client';
+import {Note, Library} from '@/lib/types';
 import SidebarHomeItem from "@/app/(knowledge)/[username]/[libraryId]/_components/sidebar-home-item";
 import {
     Breadcrumb,
@@ -16,21 +17,24 @@ import {
 } from "@/components/ui/breadcrumb"
 import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getNotes} from '@/lib/utils'
-import {API_BASE_PATH} from "@/lib/constants.ts";
+// import {getNotes} from '@/lib/utils'
+import {getLibraryById, getNotesById} from '@/lib/utils/db.ts'
+// import { API_BASE_PATH } from "@/lib/constants.ts";
+//import {fetch} from "@tauri-apps/plugin-http";
 
 const Sidebar = () => {
     let params = useParams()
     const libraryId = params.libraryId
     let [searchParams] = useSearchParams()
 
-    let [library, setLibrary] =
-        useState<Library | undefined>()
+    // let [library, setLibrary] = useState<Library | undefined>()
+    let [library, setLibrary] = useState<Library | null>()
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${API_BASE_PATH}/api/db/library/${libraryId}`)
-            const json = await res.json();
-            setLibrary(json.library)
+            // const res = await fetch(`${API_BASE_PATH}/api/db/library/${libraryId}`)
+            // const json = await res.json();
+            // setLibrary(json.library)
+            setLibrary(await getLibraryById(parseInt(libraryId!)))
         })()
     }, [searchParams])
 
@@ -38,15 +42,14 @@ const Sidebar = () => {
     useEffect(() => {
         (async () => {
             let notes: Note[] = []
-            // @ts-ignore
-            if (library?.Note && library?.Note.length > 0) {
-                // @ts-ignore
-                for (let note of library?.Note) {
+            if (library?.notes && library?.notes.length > 0) {
+                for (let note of library?.notes) {
                     // @ts-ignore
-                    notes.push(await getNotes(note.id))
+                    notes.push(await getNotesById(note.id))
                 }
             }
             setNotes(notes)
+
             // console.log(notes)
         })()
     }, [library]);
@@ -102,11 +105,12 @@ const Sidebar = () => {
             </div>
             <SidebarDirList
                 library={library}
-                libraryId={libraryId!}
+                libraryId={parseInt(libraryId!)}
                 // @ts-ignore
                 notes={notes}
                 // @ts-ignore
-                groups={library?.Group!}
+                // groups={library?.Group!}
+                groups={library?.groups!}
             />
         </div>
     );

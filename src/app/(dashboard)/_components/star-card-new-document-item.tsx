@@ -1,10 +1,10 @@
 // src/app/(dashboard)/_components/star-card-new-document-item.tsx
-import {useEffect, useState} from 'react';
-import {GrDocumentText} from "react-icons/gr";
-import {LuClipboardPenLine, LuTableProperties} from "react-icons/lu";
-import {BsClipboardData} from "react-icons/bs";
-import {Separator} from "@/components/ui/separator";
-import {FcImport} from "react-icons/fc";
+import { useEffect, useState } from 'react';
+import { GrDocumentText } from "react-icons/gr";
+import { LuClipboardPenLine, LuTableProperties } from "react-icons/lu";
+import { BsClipboardData } from "react-icons/bs";
+import { Separator } from "@/components/ui/separator";
+import { FcImport } from "react-icons/fc";
 import {
     Command,
     CommandEmpty,
@@ -13,8 +13,8 @@ import {
     CommandItem,
     CommandList,
 } from "@/components/ui/command";
-import {HiOutlineDocumentPlus} from "react-icons/hi2";
-import {HiOutlineChevronDown} from "react-icons/hi";
+import { HiOutlineDocumentPlus } from "react-icons/hi2";
+import { HiOutlineChevronDown } from "react-icons/hi";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -28,19 +28,23 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {Link, useNavigate} from 'react-router-dom';
-import {Library} from "@prisma/client";
-import {API_BASE_PATH} from "@/lib/constants.ts";
-import {createNote} from "@/app/(knowledge)/[username]/[libraryId]/actions/create-note.ts";
+import { Link, useNavigate } from 'react-router-dom';
+// import {Library} from "@prisma/client";
+import { Library } from "@/lib/types";
+// import { API_BASE_PATH } from "@/lib/constants.ts";
+import { createNote } from "@/app/(knowledge)/[username]/[libraryId]/actions/create-note.ts";
 import toast from "react-hot-toast";
+import { getLibraries } from '@/lib/utils/db';
+//import {fetch} from "@tauri-apps/plugin-http";
 
 const StarCardNewDocumentItem = () => {
-    let [libraries, setLibraries] = useState<Library[] | undefined>()
+    let [libraries, setLibraries] = useState<Library[] | null>()
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${API_BASE_PATH}/api/db/library`)
-            const json = await res.json();
-            setLibraries(json.libraries)
+            // const res = await fetch(`${API_BASE_PATH}/api/db/library`)
+            // const json = await res.json();
+            // setLibraries(json.libraries)
+            setLibraries(await getLibraries())
         })()
     }, [])
 
@@ -52,21 +56,21 @@ const StarCardNewDocumentItem = () => {
                 <DropdownMenuTrigger className={`w-[16vw] border rounded-md p-3`}>
                     {/*新建文档*/}
                     <div className={`flex items-center gap-x-2`}>
-                        <HiOutlineDocumentPlus className={`m-2 size-5`}/>
+                        <HiOutlineDocumentPlus className={`m-2 size-5`} />
                         <div className={`flex flex-col items-start`}>
                             <span className={`text-sm font-semibold cursor-pointer`}>新建文档</span>
                             <span className={`text-xs text-slate-400/80`}>
                                 文档、表格、画板、数据表
                             </span>
                         </div>
-                        <HiOutlineChevronDown className={`ml-2 size-4`}/>
+                        <HiOutlineChevronDown className={`ml-2 size-4`} />
                     </div>
                 </DropdownMenuTrigger>
                 {/*hover后弹出*/}
                 <DropdownMenuContent className={`pl-8 bg-white p-1 text-black w-[16vw] border`}>
                     <div
                         className={`mt-2 rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <GrDocumentText className={`size-4`}/>
+                        <GrDocumentText className={`size-4`} />
                         <Dialog>
                             <DialogTrigger>
                                 <span className={`cursor-pointer`}>新建文档</span>
@@ -80,7 +84,7 @@ const StarCardNewDocumentItem = () => {
                                 <DialogDescription>选择一个知识库</DialogDescription>
                                 <Command className={`relative z-50 size-screen inset-y-0`}>
                                     {libraries && libraries.length !== 0 && (<CommandInput
-                                        placeholder="请输入知识库名称进行搜索"/>)}
+                                        placeholder="请输入知识库名称进行搜索" />)}
                                     <CommandList>
                                         {libraries && libraries.length !== 0 && (
                                             <CommandEmpty>未能找到相关知识库，换个关键词试试</CommandEmpty>
@@ -117,24 +121,24 @@ const StarCardNewDocumentItem = () => {
                     </div>
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <LuTableProperties className={`size-4`}/>
+                        <LuTableProperties className={`size-4`} />
                         {/*<FcViewDetails/>*/}
                         <span>新建表格</span>
                     </div>
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <LuClipboardPenLine className={`size-4`}/>
+                        <LuClipboardPenLine className={`size-4`} />
                         <span>新建画板</span>
                     </div>
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <BsClipboardData className={`size-4`}/>
+                        <BsClipboardData className={`size-4`} />
                         <span>新建数据表</span>
                     </div>
-                    <Separator className={`m-2`}/>
+                    <Separator className={`m-2`} />
                     <div
                         className={`rounded-md mx-1 py-3 cursor-pointer px-4 hover:bg-slate-300/30 flex items-center gap-x-2`}>
-                        <FcImport className={`size-4`}/>
+                        <FcImport className={`size-4`} />
                         <span>导入</span>
                     </div>
                 </DropdownMenuContent>

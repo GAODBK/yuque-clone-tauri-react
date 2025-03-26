@@ -5,6 +5,7 @@ import {useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {Note} from "@prisma/client";
 import {API_BASE_PATH} from "@/lib/constants.ts";
+//import {fetch} from "@tauri-apps/plugin-http";
 
 const ColabPage = () => {
     let params = useParams()

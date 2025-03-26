@@ -2,16 +2,29 @@
 
 import '@mantine/core/styles.css';
 import TipTap from "@/components/tiptap/TipTap.tsx";
-import * as Y from "yjs";
-import {IndexeddbPersistence} from "y-indexeddb";
-import {HocuspocusProvider} from "@hocuspocus/provider";
-import {useEditorStore} from "@/hooks/use-editor-store.ts";
+// import * as Y from "yjs";
+// import {IndexeddbPersistence} from "y-indexeddb";
+// import {HocuspocusProvider} from "@hocuspocus/provider";
+// import {useEditorStore} from "@/hooks/use-editor-store.ts";
+import { updateLibrary } from '../actions/update-library';
+import toast from 'react-hot-toast';
 
-const HomepageEditText = ({text, name, setText}: {
-    text: string
+// const HomepageEditText = ({text, name, setText}: {
+//     text: string
+//     name: string
+//     setText: Function
+// }) => {
+
+const HomepageEditText = ({ id, name, text, showDir, description, setText }: {
+    id: number
     name: string
+    text: string
+    showDir: boolean
+    description: string
     setText: Function
 }) => {
+    // const { id, name, text, showDir, description } = library
+
     /*const editor = useEditor({
         // @ts-ignore
         extensions: [
@@ -27,33 +40,33 @@ const HomepageEditText = ({text, name, setText}: {
         return null
     }*/
 
-    const {editor} = useEditorStore();
+    // const {editor} = useEditorStore();
 
-    // 协作
-    const ydoc = new Y.Doc()
-    // Store the Y document in the browser 本地缓存, 再次连接到ws服务器时保存到服务器
-    // 实现第一次打开文档协作时同步旧数据
-    new IndexeddbPersistence(name!, ydoc)
+    // // 协作
+    // const ydoc = new Y.Doc()
+    // // Store the Y document in the browser 本地缓存, 再次连接到ws服务器时保存到服务器
+    // // 实现第一次打开文档协作时同步旧数据
+    // new IndexeddbPersistence(name!, ydoc)
 
-    // Set up the Hocuspocus WebSocket provider
-    // 协作websocket服务器 (local)
-    const provider = new HocuspocusProvider({
-        url: 'ws://127.0.0.1:1234',
-        document: ydoc,
-        name,
+    // // Set up the Hocuspocus WebSocket provider
+    // // 协作websocket服务器 (local)
+    // const provider = new HocuspocusProvider({
+    //     url: 'ws://127.0.0.1:1234',
+    //     document: ydoc,
+    //     name,
 
-        // The onSynced callback ensures initial content is set only once using editor.setContent(), preventing repetitive content loading on editor syncs.
-        onSynced() {
-            if (!editor) return
+    //     // The onSynced callback ensures initial content is set only once using editor.setContent(), preventing repetitive content loading on editor syncs.
+    //     onSynced() {
+    //         if (!editor) return
 
-            if (!ydoc.getMap('config').get('initialContentLoaded') && editor) {
-                ydoc.getMap('config').set('initialContentLoaded', true)
+    //         if (!ydoc.getMap('config').get('initialContentLoaded') && editor) {
+    //             ydoc.getMap('config').set('initialContentLoaded', true)
 
-                // editor.commands.setContent('')
-                editor.commands.setContent(text!)
-            }
-        },
-    })
+    //             // editor.commands.setContent('')
+    //             editor.commands.setContent(text!)
+    //         }
+    //     },
+    // })
 
     return (
         <div className={`mx-4 h-full prose-lg rounded-md p-2 border`}>
@@ -116,12 +129,28 @@ const HomepageEditText = ({text, name, setText}: {
                 <RichTextEditor.Content/>
             </RichTextEditor>*/}
             <TipTap
-                provider={provider}
+                // provider={provider}
                 onSubmit={async () => {
+                    await updateLibrary({
+                        id, name, text, showDir, description
+                        // name, text
+                    })
+                    toast.success(`保存成功`)
+                }}
+                onSave={async () => {
+                    await updateLibrary({
+                        id, name, text, showDir, description
+                        // name, text
+                    })
+                    toast.success(`自动保存成功`)
                 }}
                 slug={name}
                 description={text}
-                onChange={(richText) => setText(richText)}/>
+                onChange={(richText) => {
+                    console.log(richText);
+
+                    setText(richText)
+                }} />
         </div>
     );
 };

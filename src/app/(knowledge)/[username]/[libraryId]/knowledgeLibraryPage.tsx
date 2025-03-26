@@ -1,9 +1,9 @@
 // src/app/(dashboard)/dashboard/library/[username]/[id]/page.tsx
 
-import {BsJournalBookmark} from "react-icons/bs";
-import {HiEllipsisHorizontal} from "react-icons/hi2";
-import {Library} from "@prisma/client";
-import {Link, useParams, useSearchParams} from 'react-router-dom';
+import { BsJournalBookmark } from "react-icons/bs";
+import { HiEllipsisHorizontal } from "react-icons/hi2";
+import { Library } from "@prisma/client";
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import HomepageRenameInput from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-rename-input";
-import {TiStarOutline} from "react-icons/ti";
+import { TiStarOutline } from "react-icons/ti";
 import EditHomepage from "@/app/(knowledge)/[username]/[libraryId]/_components/edit-homepage";
 
 import 'katex/dist/katex.min.css';
@@ -65,7 +65,7 @@ hljs.registerLanguage('shell', shell);
 hljs.registerLanguage('r', r);
 hljs.registerLanguage('perl', perl);
 
-import {createLowlight, all} from 'lowlight'
+import { createLowlight, all } from 'lowlight'
 
 // const lowlight = createLowlight(common)
 const lowlight = createLowlight(all)
@@ -85,27 +85,30 @@ lowlight.register('ts', ts)
 
 import './style.scss'
 import HomepageDir from "@/app/(knowledge)/[username]/[libraryId]/_components/homepage-dir";
-import {renderMathInText, renderRichTextWithHighlight} from "@/lib/utils.ts";
-import {useEffect, useState} from "react";
+import { renderMathInText, renderRichTextWithHighlight } from "@/lib/utils.ts";
+import { useEffect, useState } from "react";
 import Layout from "@/app/(knowledge)/[username]/[libraryId]/layout.tsx";
-import {API_BASE_PATH} from "@/lib/constants.ts";
+import { API_BASE_PATH } from "@/lib/constants.ts";
+import { getLibraries, getLibraryById } from "@/lib/utils/db";
+//import {fetch} from "@tauri-apps/plugin-http";
 
 const KnowledgeLibraryPage = () => {
     let params = useParams()
     let [searchParams] = useSearchParams()
 
-    let [library, setLibrary] =
-        useState<Library | undefined>()
+    let [library, setLibrary] = useState<Library | null>()
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${API_BASE_PATH}/api/db/library/${params.libraryId}`)
-            const json = await res.json();
-            setLibrary(json.library)
+            // const res = await fetch(`${API_BASE_PATH}/api/db/library/${params.libraryId}`)
+            // const json = await res.json();
+            // setLibrary(json.library)
+            setLibrary(await getLibraryById(parseInt(params.libraryId!)))
         })()
     }, [searchParams])
     if (!library) {
         return
     }
+    console.log(library)
 
     return (
         <Layout>
@@ -115,16 +118,16 @@ const KnowledgeLibraryPage = () => {
                         <>
                             <div className={`flex p-8 justify-between items-center`}>
                                 <div className={`flex gap-x-2 items-center`}>
-                                    <BsJournalBookmark className={`text-blue-500 size-8`}/>
+                                    <BsJournalBookmark className={`text-blue-500 size-8`} />
                                     {searchParams.get('type') !== 'rename' ?
                                         <text className={`font-bold text-2xl`}>{library?.name}</text> :
-                                        <HomepageRenameInput library={library}/>
+                                        <HomepageRenameInput library={library} />
                                     }
                                 </div>
                                 <div className={`flex items-center gap-x-2`}>
                                     <>
                                         <div className={`p-2 border flex items-center rounded-md`}>
-                                            <TiStarOutline className={``}/>
+                                            <TiStarOutline className={``} />
                                             <span className={`text-sm`}>收藏</span>
                                         </div>
                                         <div className={`p-2 border flex items-center rounded-md`}>
@@ -132,7 +135,7 @@ const KnowledgeLibraryPage = () => {
                                         </div>
                                         <DropdownMenu>
                                             <DropdownMenuTrigger>
-                                                <HiEllipsisHorizontal className={`cursor-pointer size-6 m-1`}/>
+                                                <HiEllipsisHorizontal className={`cursor-pointer size-6 m-1`} />
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent>
                                                 <DropdownMenuItem>
@@ -163,12 +166,14 @@ const KnowledgeLibraryPage = () => {
                                     />
                                 </div>
                             </div>
-                            {library.showDir && <HomepageDir
+                            {/* {library.showDir  && <HomepageDir */}
+                            {library.showDir !== 'false' && <HomepageDir
                                 // @ts-ignore
-                                library={library}/>}
-                        </>)}
+                                library={library} />}
+                        </>
+                    )}
                     {searchParams.get('type') === 'edit' && (
-                        <EditHomepage library={library}/>
+                        <EditHomepage library={library} />
                     )}
                 </div>
             </div>

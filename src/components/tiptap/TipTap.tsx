@@ -21,8 +21,7 @@ import {useMutation} from "@tanstack/react-query";
 
 const TipTap = ({
                     description, onChange, slug, onSubmit,
-                    onSave = async () => {
-                    },
+                    onSave,
                     provider
                 }: {
     description: string

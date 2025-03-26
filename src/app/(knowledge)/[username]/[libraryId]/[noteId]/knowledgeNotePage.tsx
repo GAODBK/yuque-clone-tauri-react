@@ -51,7 +51,7 @@ hljs.registerLanguage('shell', shell);
 hljs.registerLanguage('r', r);
 hljs.registerLanguage('perl', perl);
 
-import {createLowlight, all} from 'lowlight'
+import { createLowlight, all } from 'lowlight'
 
 // const lowlight = createLowlight(common)
 const lowlight = createLowlight(all)
@@ -75,47 +75,57 @@ import NoteEdit from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_compone
 import OutlineButton from "@/app/(knowledge)/[username]/[libraryId]/[noteId]/_components/outline-button";
 import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import '@mantine/tiptap/styles.css';
-import {useParams, useSearchParams} from "react-router-dom";
-import {renderMathInText, renderRichTextWithHighlight} from "@/lib/utils.ts";
-import {useEffect, useState} from "react";
-import {Note} from "@prisma/client";
+import { useParams, useSearchParams } from "react-router-dom";
+import { generateOutline, renderMathInText, renderRichTextWithHighlight } from "@/lib/utils.ts";
+import { useEffect, useState } from "react";
+import { Note } from "@prisma/client";
 import Layout from "@/app/(knowledge)/[username]/[libraryId]/layout.tsx";
-import {API_BASE_PATH} from "@/lib/constants.ts";
+import { API_BASE_PATH } from "@/lib/constants.ts";
 // import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import '@mantine/core/styles.css';
 import './note.css'
-import {ScrollArea} from "@/components/ui/scroll-area.tsx";
+import { ScrollArea } from "@/components/ui/scroll-area.tsx";
+import { getNoteById } from '@/lib/utils/db';
+//import {fetch} from "@tauri-apps/plugin-http";
 
 const KnowledgeNotePage = () => {
     let params = useParams()
     let [searchParams, _set] = useSearchParams()
 
     const [note, setNote] = useState<Note | undefined>()
-    const [data, setData] = useState()
+    const [data, setData] = useState<{
+        full: string;
+        outline: string;
+        rich: string;
+    }>()
     useEffect(() => {
         (async () => {
-            const res = await fetch(
-                `${API_BASE_PATH}/api/db/note/${params.noteId}`,
-            )
-            const json = await res.json()
-            setNote(json.note)
+            // const res = await fetch(
+            //     `${API_BASE_PATH}/api/db/note/${params.noteId}`,
+            // )
+            // const json = await res.json()
+            // setNote(json.note)
+            const get_note = await getNoteById(parseInt(params.noteId!))
+            setNote(get_note)
 
-            if (!json.note) return
-            const richText = renderRichTextWithHighlight(renderMathInText(json.note.text || ''))
-            const data = await fetch(`${API_BASE_PATH}/api/outline/generate`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    richText
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            setData(await data.json())
+            // if (!json.note) return
+            // const richText = renderRichTextWithHighlight(renderMathInText(json.note.text || ''))
+            const richText = renderRichTextWithHighlight(renderMathInText(get_note.text || ''))
+            // const data = await fetch(`${API_BASE_PATH}/api/outline/generate`, {
+            //     method: 'POST',
+            //     body: JSON.stringify({
+            //         richText
+            //     }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // setData(await data.json())
+            setData(await generateOutline(richText))
         })()
     }, [searchParams]);
     if (!data || !note) return
-    let {rich, outline} = data
+    let { rich, outline } = data
 
 
     return (
@@ -126,52 +136,52 @@ const KnowledgeNotePage = () => {
                         libraryId={params.libraryId!}
                         id={note?.id!}
                         text={note?.text! || ''}
-                        name={note?.name!}/>
+                        name={note?.name!} />
                     <div className={`flex size-full`}>
                         {(searchParams.get('type') !== 'both' &&
                             searchParams.get('type') !== 'edit'
                         ) && <div className={`size-full flex-1 p-4`}>
-                            {(!note?.name || note?.name === '无标题文档') ?
-                                <h1 className={`mx-6 my-1 mb-2 text-4xl font-semibold`}>
-                                    无标题文档
-                                </h1> :
-                                !note?.text && <h1 className={`mx-6 my-1 mb-2 text-4xl font-semibold`}>
-                                    {note?.name}
-                                </h1>
-                            }
-                            <div className={`px-6 py-2 w-full flex justify-between`}>
-                                {note?.text &&
-                                    <>
-                                        <ScrollArea className={`h-[90vh] w-full relative`}>
-                                            <div
-                                                id={`tiptap-content`}
-                                                className={`p-12 prose-lg`}
-                                                dangerouslySetInnerHTML={{
-                                                    __html: (rich)
-                                                }}/>
-                                            <div className={`flex-1`}/>
-                                        </ScrollArea>
-                                        <OutlineButton outline={outline}/>
-                                    </>
+                                {(!note?.name || note?.name === '无标题文档') ?
+                                    <h1 className={`mx-6 my-1 mb-2 text-4xl font-semibold`}>
+                                        无标题文档
+                                    </h1> :
+                                    !note?.text && <h1 className={`mx-6 my-1 mb-2 text-4xl font-semibold`}>
+                                        {note?.name}
+                                    </h1>
                                 }
-                                {!note?.text && (
-                                    <div className={`size-full`}>暂无内容</div>
-                                )}
-                            </div>
-                        </div>}
+                                <div className={`px-6 py-2 w-full flex justify-between`}>
+                                    {note?.text &&
+                                        <>
+                                            <ScrollArea className={`h-[90vh] w-full relative`}>
+                                                <div
+                                                    id={`tiptap-content`}
+                                                    className={`p-12 prose-lg`}
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: (rich)
+                                                    }} />
+                                                <div className={`flex-1`} />
+                                            </ScrollArea>
+                                            <OutlineButton outline={outline} />
+                                        </>
+                                    }
+                                    {!note?.text && (
+                                        <div className={`size-full`}>暂无内容</div>
+                                    )}
+                                </div>
+                            </div>}
                         {(searchParams.get('type') === 'both' ||
-                                searchParams.get('type') === 'edit')
+                            searchParams.get('type') === 'edit')
                             && <NoteEdit
                                 libraryId={params.libraryId!}
-                                note={note!}/>}
+                                note={note!} />}
                     </div>
                 </div>
                 {(searchParams.get('type') === 'both' ||
                     searchParams.get('type') === 'ai-read') && <NoteAiChat
-                    richText={note?.text || ''}
-                    libraryId={params.libraryId!}
-                    id={note?.id!}
-                />}
+                        richText={note?.text || ''}
+                        libraryId={params.libraryId!}
+                        id={note?.id!}
+                    />}
             </div>
         </Layout>
     );

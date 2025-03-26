@@ -60,9 +60,40 @@ import {FontSizeExtension} from "@/components/tiptap/extensions/font-size";
 // import GlobalDragHandle from 'tiptap-extension-global-drag-handle'
 
 import DrawioExtension from '@/components/tiptap/extensions/DrawioExtension'
-import ExcalidrawExtension from '@/components/tiptap/extensions/ExcalidrawExtension'
+// import ExcalidrawExtension from '@/components/tiptap/extensions/ExcalidrawExtension'
+
+import {ExcalidrawExtension} from 'tiptap-excalidraw-extension';
 
 export const API_BASE_PATH = 'http://localhost:3000'
+
+
+const DOC_LOCAL_STORATE_KEY = 'tiptapDocDataUrl';
+
+const uploadFn = async (file: Blob | object, ext: 'png' | 'jpg' | 'webp' | 'json') => {
+    const formData = new FormData();
+
+    if (ext === 'json') {
+        const jsonBlob = new Blob([JSON.stringify(file)], {type: 'application/json'});
+        formData.append('file', jsonBlob, `data.${ext}`);
+    } else if (['png', 'jpg', 'webp'].includes(ext)) {
+        formData.append('file', file as Blob, `image.${ext}`);
+    } else {
+        throw new Error('Unsupported file type');
+    }
+
+    const response = await fetch(`${API_BASE_PATH}/api/upload`, {
+        method: 'POST',
+        body: formData,
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+
+    } else {
+        console.error('Upload failed:', data.error);
+    }
+};
+
 
 export const TiptapExtensions = [
     // 浏览器中可以拖动内容到其他位置, tauri中不行
@@ -161,7 +192,13 @@ export const TiptapExtensions = [
     Video,
     MathNode,
     DrawioExtension,
-    ExcalidrawExtension,
+    ExcalidrawExtension.configure({
+        extension: {
+            inline: false,
+            uploadFn,
+            // downloadFn
+        }
+    }),
     // GlobalDragHandle
 ]
 

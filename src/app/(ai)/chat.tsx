@@ -8,6 +8,7 @@ import EmojiPicker from "emoji-picker-react";
 import { Toggle } from "@/components/ui/toggle";
 import '@/app/(knowledge)/[username]/[libraryId]/style.scss'
 import { cn } from "@/lib/utils";
+//import {fetch} from "@tauri-apps/plugin-http";
 
 const AiChatPage = () => {
 

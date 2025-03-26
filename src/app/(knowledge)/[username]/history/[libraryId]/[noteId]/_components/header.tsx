@@ -1,6 +1,7 @@
 // src/app/(knowledge)/[username]/history/[libraryId]/[noteId]/_components/header.tsx
 
-import {NoteHistory} from '@prisma/client';
+// import {NoteHistory} from '@prisma/client';
+import {NoteHistory} from '@/lib/types.ts';
 
 import {FaChevronLeft} from "react-icons/fa";
 import {backToHistory} from "@/app/(knowledge)/[username]/history/[libraryId]/[noteId]/actions/back-to-history";
@@ -18,7 +19,10 @@ import {
 import toast from 'react-hot-toast';
 
 
-const Header = ({history}: { history: NoteHistory | undefined }) => {
+const Header = ({history, libraryId}: {
+    history: NoteHistory | undefined
+    libraryId: string
+}) => {
     const router = useNavigate()
 
     return (
@@ -28,9 +32,7 @@ const Header = ({history}: { history: NoteHistory | undefined }) => {
                 <FaChevronLeft
                     className={`size-5 cursor-pointer`}
                     onClick={() => {
-                        // router.back()
-                        // @ts-ignore
-                        router(`/malred/${history.note.libraryId}/${history.noteId}`)
+                        router(`/malred/${libraryId}/${history?.noteId}`)
                         // router.refresh()
                     }}
                 />

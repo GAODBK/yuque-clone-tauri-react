@@ -1,6 +1,7 @@
 // src/app/(knowledge)/[username]/[libraryId]/_components/sidebar-dir-lite-item.tsx
 import {useState} from 'react';
-import {Note} from "@prisma/client";
+// import {Note} from "@prisma/client";
+import {Note} from "@/lib/types";
 import {
     ContextMenu,
     ContextMenuContent,
@@ -22,7 +23,7 @@ import toast from "react-hot-toast";
 const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
     notes: Note[]
     level?: number
-    libraryId: string
+    libraryId: number
 }) => {
     // console.log(level, notes[0].parentNoteId, notes)
     const pathname = useLocation().pathname
@@ -45,6 +46,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
             toast.success(`重命名成功`)
         }
     }
+    console.log(notes)
 
     return (
         <>
@@ -56,8 +58,10 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                         <>
                             {(!editingId) && (
                                 <Accordion type="single" collapsible>
-                                    <AccordionItem value="item-1" className={`p-0 border-none`}>
-                                        <AccordionTrigger key={item.id} className={`p-0 border-none`}>
+                                    {/*<AccordionItem value="item-1" className={`p-0 border-none`}>*/}
+                                    <AccordionItem value={item.id.toString()} className={`p-0 border-none`}>
+                                        <AccordionTrigger
+                                            key={item.id} className={`p-0 border-none`}>
                                             <ContextMenu>
                                                 <ContextMenuTrigger>
                                                     <div
@@ -77,7 +81,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                                 </ContextMenuTrigger>
                                                 <ContextMenuContent>
                                                     <ContextMenuItem
-                                                        onClick={() => setEditingId(item.id)}
+                                                        onClick={() => setEditingId(item.id.toString())}
                                                     >
                                                         重命名
                                                     </ContextMenuItem>
@@ -119,7 +123,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                         </AccordionContent>
                                     </AccordionItem>
                                 </Accordion>)}
-                            {editingId && editingId === item.id && (
+                            {editingId && editingId === item.id.toString() && (
                                 <Input key={item.id}
                                        onKeyDown={onKeyDown}
                                        onBlur={() => setEditingId(null)}
@@ -150,7 +154,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                     </ContextMenuTrigger>
                                     <ContextMenuContent>
                                         <ContextMenuItem
-                                            onClick={() => setEditingId(item.id)}
+                                            onClick={() => setEditingId(item.id.toString())}
                                         >
                                             重命名
                                         </ContextMenuItem>
@@ -179,7 +183,7 @@ const SidebarDirLiteItem = ({notes, libraryId, level = 0}: {
                                     </ContextMenuContent>
                                 </ContextMenu>
                             )}
-                            {editingId && editingId === item.id && (
+                            {editingId && editingId === item.id.toString() && (
                                 <Input key={item.id}
                                        onKeyDown={onKeyDown}
                                        onBlur={() => setEditingId(null)}

@@ -251,9 +251,15 @@ importers:
       '@tauri-apps/api':
         specifier: ^2
         version: 2.2.0
+      '@tauri-apps/plugin-http':
+        specifier: ^2.2.0
+        version: 2.2.0
       '@tauri-apps/plugin-opener':
         specifier: ^2
         version: 2.2.2
+      '@tauri-apps/plugin-sql':
+        specifier: ~2.2.0
+        version: 2.2.0
       '@tiptap/core':
         specifier: ^2.11.0
         version: 2.11.0(@tiptap/pm@2.11.0)
@@ -587,6 +593,9 @@ importers:
       tesseract.js:
         specifier: ^5.1.1
         version: 5.1.1(encoding@0.1.13)
+      tiptap-excalidraw-extension:
+        specifier: ^0.0.4
+        version: 0.0.4(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tiptap-extension-global-drag-handle:
         specifier: ^0.1.16
         version: 0.1.16
@@ -3140,8 +3149,14 @@ packages:
     engines: {node: '>= 10'}
     hasBin: true
 
+  '@tauri-apps/plugin-http@2.2.0':
+    resolution: {integrity: sha512-ZY6sIHhgu8hcu6BkkegoiOEbvOsQFSVcK8J7l+g9RNHrkhl5uzpNIytR4R/H50fj7gyG80DJvrXDx/LBo7Easw==}
+
   '@tauri-apps/plugin-opener@2.2.2':
     resolution: {integrity: sha512-E/XIHKqGV+FT8PDdkfMETmgPUxcR79Rk8USuzbadD/ZdvsKCfQR5q+6rpZC9zEnG2wzi9lVQM4D3xwrtGGIB8A==}
+
+  '@tauri-apps/plugin-sql@2.2.0':
+    resolution: {integrity: sha512-yGdybpaMENe/p6lTXslvDHYNNvD9qB7palaBBF5fJHdYSkwd3vrLiYU9dFfLwUAwnsBylND55EiivWsjhazejA==}
 
   '@tiptap/core@2.11.0':
     resolution: {integrity: sha512-0S3AWx6E2QqwdQqb6z0/q6zq2u9lA9oL3BLyAaITGSC9zt8OwjloS2k1zN6wLa9hp2rO0c0vDnWsTPeFaEaMdw==}
@@ -7014,6 +7029,12 @@ packages:
       react: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18
       react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18
 
+  react-modal@3.16.3:
+    resolution: {integrity: sha512-yCYRJB5YkeQDQlTt17WGAgFJ7jr2QYcWa1SHqZ3PluDmnKJ/7+tVU+E6uKyZ0nODaeEj+xCpK4LcSnKXLMC0Nw==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19
+      react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19
+
   react-number-format@5.4.3:
     resolution: {integrity: sha512-VCY5hFg/soBighAoGcdE+GagkJq0230qN6jcS5sp8wQX1qy1fYN/RX7/BXkrs0oyzzwqR8/+eSUrqXbGeywdUQ==}
     peerDependencies:
@@ -7834,6 +7855,13 @@ packages:
 
   tippy.js@6.3.7:
     resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
+
+  tiptap-excalidraw-extension@0.0.4:
+    resolution: {integrity: sha512-p/IyvGnO/0mwrZdouBYB64CNbIHgm4lcjBIq4eOhCVqS5PJgFKcK6C1WACWB//EL1BUUzaATU2b306aIFEvoMQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      react: ^17.0.2 || ^18.2.0
+      react-dom: ^17.0.2 || ^18.2.0
 
   tiptap-extension-global-drag-handle@0.1.16:
     resolution: {integrity: sha512-Toke8gAgvgmSTmpU5Zome29ywdcIPxVZVkzI3GpUbaX8DF7o2ukyb+g/x5PAwBWQt/E4nhX91QlClo96psSYHQ==}
@@ -10583,7 +10611,15 @@ snapshots:
       '@tauri-apps/cli-win32-ia32-msvc': 2.2.2
       '@tauri-apps/cli-win32-x64-msvc': 2.2.2
 
+  '@tauri-apps/plugin-http@2.2.0':
+    dependencies:
+      '@tauri-apps/api': 2.2.0
+
   '@tauri-apps/plugin-opener@2.2.2':
+    dependencies:
+      '@tauri-apps/api': 2.2.0
+
+  '@tauri-apps/plugin-sql@2.2.0':
     dependencies:
       '@tauri-apps/api': 2.2.0
 
@@ -15108,6 +15144,15 @@ snapshots:
       react-lifecycles-compat: 3.0.4
       warning: 4.0.3
 
+  react-modal@3.16.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      exenv: 1.2.2
+      prop-types: 15.8.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-lifecycles-compat: 3.0.4
+      warning: 4.0.3
+
   react-number-format@5.4.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       react: 18.3.1
@@ -16140,6 +16185,14 @@ snapshots:
   tippy.js@6.3.7:
     dependencies:
       '@popperjs/core': 2.11.8
+
+  tiptap-excalidraw-extension@0.0.4(@tiptap/core@2.11.0(@tiptap/pm@2.11.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      '@excalidraw/excalidraw': 0.17.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tiptap/core': 2.11.0(@tiptap/pm@2.11.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-modal: 3.16.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
   tiptap-extension-global-drag-handle@0.1.16: {}
 
