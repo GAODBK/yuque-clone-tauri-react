@@ -1,17 +1,20 @@
-name: Build Tauri App for Windows
+name: Build Tauri App for Windows, macOS, Linux
 
 on:
   push:
-    branches: [v0.1.0]
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build on Windows
-    runs-on: windows-latest
+  build-tauri:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repo
         uses: actions/checkout@v4
 
       - name: Set up Node.js
@@ -21,32 +24,42 @@ jobs:
           cache: 'pnpm'
 
       - name: Set up pnpm
-        run: npm install -g pnpm
+        run: npm install -g pnpm@9.15.0
+
+      - name: Create dummy .env file for Prisma
+        run: echo 'DATABASE_URL="mysql://root:123456@localhost:3306/yuque"' > .env
 
       - name: Install frontend dependencies
         run: pnpm install
-        working-directory: ./your-react-folder  # 修改为你的前端目录
+        working-directory: .
 
       - name: Build frontend
         run: pnpm build
-        working-directory: ./your-react-folder  # 修改为你的前端目录
+        working-directory: .
 
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-pc-windows-msvc
 
       - name: Install Tauri CLI
         run: cargo install tauri-cli
 
-      - name: Build Tauri App (EXE/MSI)
+      - name: Build Tauri app
         run: pnpm tauri build
         env:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
 
-      - name: Upload EXE artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
         with:
-          name: tauri-windows-build
-          path: src-tauri/target/release/bundle
+          tag_name: ${{ github.ref_name }}
+          files: |
+            src-tauri/target/release/bundle/**/*.msi
+            src-tauri/target/release/bundle/**/*.exe
+            src-tauri/target/release/bundle/**/*.dmg
+            src-tauri/target/release/bundle/**/*.app
+            src-tauri/target/release/bundle/**/*.AppImage
+            src-tauri/target/release/bundle/**/*.deb
+            src-tauri/target/release/bundle/**/*.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
